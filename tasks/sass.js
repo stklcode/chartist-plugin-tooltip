@@ -9,16 +9,22 @@
 
 'use strict';
 
+const sass = require('node-sass');
+
 module.exports = function (grunt) {
-  return {
-    dist: {
-      files: [{
-        expand: true,
-        cwd: '<%= pkg.config.src %>/scss',
-        src: ['*.scss'],
-        dest: '<%= pkg.config.src %>/css',
-        ext: '.css'
-      }]
-    }
-  };
+    return {
+        options: {
+            implementation: sass,
+            sourceMap: true
+        },
+        dist: {
+            files: [{
+                expand: true,
+                cwd: '<%= pkg.config.src %>/scss',
+                src: ['*.scss'],
+                dest: '<%= pkg.config.src %>/css',
+                ext: '.css'
+            }]
+        }
+    };
 };
