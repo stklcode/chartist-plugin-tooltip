@@ -34,3 +34,4 @@ bower_components
 
 #Idea files
 .idea
+*.iml
