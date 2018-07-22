@@ -1,4 +1,9 @@
 # Tooltip plugin for Chartist.js (Updated)
+[![Build Status](https://travis-ci.com/LukBukkit/chartist-plugin-tooltip.svg?branch=master)](https://travis-ci.com/LukBukkit/chartist-plugin-tooltip)
+[![npm](https://img.shields.io/npm/v/chartist-plugin-tooltips-updated.svg)](https://www.npmjs.com/package/chartist-plugin-tooltips-updated)
+
+[![NPM](https://nodei.co/npm/chartist-plugin-tooltips-updated.png)](https://nodei.co/npm/chartist-plugin-tooltips-updated/)
+
 
 This plugin provides quick and easy tooltips for your chartist charts. Touch support is planned soon.
 
@@ -50,11 +55,11 @@ var defaultOptions = {
 
 ## Sample usage in Chartist.js
 
-##### First you have to install the plugin via Yarn:
+#### First you have to install the plugin via Yarn:
 
 `yarn add chartist-plugin-tooltip-updated`
 
-##### Then you can include this plugin...
+#### Then you can include this plugin...
 1. via `<script>` tag and the file `dist/chartist-plugin-tooltip.min.js`:
 ```js
 var chart = new Chartist.Line('.ct-chart', data, {
