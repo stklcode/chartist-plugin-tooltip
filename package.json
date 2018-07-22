@@ -1,7 +1,7 @@
 {
   "name": "chartist-plugin-tooltips-updated",
   "description": "Point Labels Plugin for Chartist.js",
-  "version": "0.0.18",
+  "version": "0.0.20",
   "author": "LukBukkit & Markus Padourek",
   "homepage": "https://github.com/LukBukkit/chartist-plugin-tooltip",
   "repository": {
