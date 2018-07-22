@@ -37,7 +37,7 @@
       }
 
       var $chart = chart.container;
-      // wehen appendToBody is passed then we need to check if there are any tooltips in the document else
+      // when appendToBody is passed then we need to check if there are any tooltips in the document else
       // divs were being created for every instance
       var $toolTip = $chart.querySelector('.chartist-tooltip') || document.querySelector('.chartist-tooltip');
       if (!$toolTip) {
@@ -140,7 +140,7 @@
       function setPosition(event) {
         height = height || $toolTip.offsetHeight;
         width = width || $toolTip.offsetWidth;
-        var offsetX = -width / 2 + options.tooltipOffset.x
+        var offsetX = -width / 2 + options.tooltipOffset.x;
         var offsetY = -height + options.tooltipOffset.y;
         var anchorX, anchorY;
 

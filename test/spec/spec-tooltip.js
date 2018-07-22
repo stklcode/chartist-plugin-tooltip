@@ -23,7 +23,7 @@ describe('ctPointLabels', function () {
 
     chart.container.addEventListener = function(event, listener) {
       listeners[event] = listener;
-    }
+    };
 
     var tooltip = window.Chartist.plugins.tooltip({class: 'foo'});
     tooltip(chart);
@@ -79,7 +79,7 @@ describe('ctPointLabels', function () {
     expect(getTooltip().style.left).toMatch(/^\d+px$/);
     expect(getTooltip().style.top).toMatch(/^\d+px$/);
   });
-  
+
   it('should set additional class', function(){
     expect(hasClass(getTooltip(), 'foo')).toBe(true);
   });
