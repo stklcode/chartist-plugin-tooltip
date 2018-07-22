@@ -131,6 +131,11 @@
 
                 if (tooltipText) {
                     $toolTip.innerHTML = tooltipText;
+
+                    // Calculate new width and height, as toolTip width/height may have changed with innerHTML change
+                    height = $toolTip.offsetHeight;
+                    width = $toolTip.offsetWidth;
+
                     setPosition(event);
                     show($toolTip);
 
