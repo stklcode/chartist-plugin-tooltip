@@ -1,12 +1,31 @@
-# Tooltip plugin for Chartist.js
+# Tooltip plugin for Chartist.js (Updated)
 
 This plugin provides quick and easy tooltips for your chartist charts. Touch support is planned soon.
 
 Please visit http://gionkunz.github.io/chartist-js/plugins.html for more information.
 
-NPM package: https://www.npmjs.com/package/chartist-plugin-tooltips
+NPM package: https://www.npmjs.com/package/chartist-plugin-tooltips-updated
 
-*Note the 's' on the end of the package name. *chartist-plugin-tooltip* with no 's' is a different package that does not appear to be actively maintained.*
+## Why this fork?
+This repository is a fork of [tmmdata/chartist-plugin-tooltip](https://github.com/tmmdata/chartist-plugin-tooltip). 
+(Thanks for this great work guys!)
+
+It seems as this repository is no longer maintended, 
+that's why I decieded to fork it and **include serval pull requests** and
+**update the dependencies**.
+
+#### Included Pull Requests
+
+* [#87 Document new meta options](https://github.com/tmmdata/chartist-plugin-tooltip/pull/87) from meisanerd 
+* [#131 (feature) add chartist-plugin-tooltip.scss to dist folder](https://github.com/tmmdata/chartist-plugin-tooltip/pull/131) from Zadvornyi
+* [#136 Fix issue checking chart type when uglified](https://github.com/tmmdata/chartist-plugin-tooltip/pull/136) from jkowens
+* [#128 Fixes width/height being incorrect](https://github.com/tmmdata/chartist-plugin-tooltip/pull/128) from jdoyle65 
+* [#160 Fixed memory leak](https://github.com/tmmdata/chartist-plugin-tooltip/pull/160) from callanto
+
+#### More new exciting stuff
+* Upgrade to Yarn
+* Up-to-date dependencies
+* Latest version published on npm
 
 ## Available options and their defaults
 
@@ -31,7 +50,32 @@ var defaultOptions = {
 
 ## Sample usage in Chartist.js
 
-`bower install chartist-plugin-tooltip --save`
+##### First you have to install the plugin via Yarn:
+
+`yarn add chartist-plugin-tooltip-updated`
+
+##### Then you can include this plugin...
+1. via `<script>` tag and the file `dist/chartist-plugin-tooltip.min.js`:
+```js
+var chart = new Chartist.Line('.ct-chart', data, {
+  plugins: [
+    Chartist.plugins.tooltip()
+  ]
+});
+```
+2. or via a CommonJS import (like in NodeJS):
+```js
+import Chartist from 'chartist';
+import ChartistTooltip from 'chartist-plugin-tooltip-updated';
+
+let chart = new Chartist.Line('.ct-chart', data, {
+  plugins: [
+    ChartistTooltip()
+  ]
+});
+```
+
+#### And now you can use the different options for labels:
 
 With descriptive text:
 ```js
