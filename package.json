@@ -53,6 +53,7 @@
     "node": ">=0.10.0"
   },
   "scripts": {
+    "build": "grunt build",
     "test": "grunt test",
     "preversion": "grunt test",
     "version": "grunt build && git add -A ."
