@@ -2,6 +2,13 @@
 
 ### master
 
+### 0.0.20
+* [BUGFIX] Fixed issue checking chart type when uglified
+* [BUGFIX] Fixed width/height being incorrect
+* [BUGFIX] Fixed memory leak
+* [ENHANCEMENT] Switched to Yarn
+* [ENHANCEMENT] Added less file to the dist folder
+
 ### 0.0.11
 * [BUGFIX] Tooltips now working properly on Firefox
 * [ENHANCEMENT] Added custom tooltip using options.tooltipFnc
