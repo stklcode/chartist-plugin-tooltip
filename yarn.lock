@@ -796,9 +796,10 @@ grunt-lib-phantomjs@^1.0.0:
     semver "^5.1.0"
     temporary "^0.0.8"
 
-grunt-sass@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/grunt-sass/-/grunt-sass-3.0.1.tgz#2760207d7b78db84429d9fa77d22289a6fc903a0"
+grunt-sass@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/grunt-sass/-/grunt-sass-3.0.2.tgz#b4f01567ce3df4460fcc788e9e5e4c65263425ed"
+  integrity sha512-Ogq4cWqBre71gZIkgxIxevgzZHSIIsrKu/5yvPDl4Mvib0A4TRTJEQUdpQ0YV1iai0DPjayz02vDJE6KUVHQ2w==
 
 grunt-umd@~3.0.0:
   version "3.0.0"

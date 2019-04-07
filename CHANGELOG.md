@@ -2,6 +2,9 @@
 
 ### master
 
+### 0.0.21
+* [BUGFIX] Fixed the position of the tooltips when there are multiple charts
+
 ### 0.0.20
 * [BUGFIX] Fixed issue checking chart type when uglified
 * [BUGFIX] Fixed width/height being incorrect

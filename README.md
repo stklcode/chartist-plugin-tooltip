@@ -13,9 +13,9 @@ NPM package: https://www.npmjs.com/package/chartist-plugin-tooltips-updated
 
 ## Why this fork?
 This repository is a fork of [tmmdata/chartist-plugin-tooltip](https://github.com/tmmdata/chartist-plugin-tooltip). 
-(Thanks for this great work guys!)
+(Thanks for the great work!)
 
-It seems as this repository is no longer maintended, 
+It seems as this repository is no longer maintained, 
 that's why I decieded to fork it and **include serval pull requests** and
 **update the dependencies**.
 
@@ -57,7 +57,7 @@ var defaultOptions = {
 
 #### First you have to install the plugin via Yarn:
 
-`yarn add chartist-plugin-tooltip-updated`
+`yarn add chartist-plugin-tooltips-updated`
 
 #### Then you can include this plugin...
 1. via `<script>` tag and the file `dist/chartist-plugin-tooltip.min.js`:
@@ -71,7 +71,7 @@ var chart = new Chartist.Line('.ct-chart', data, {
 2. or via a CommonJS import (like in NodeJS):
 ```js
 import Chartist from 'chartist';
-import ChartistTooltip from 'chartist-plugin-tooltip-updated';
+import ChartistTooltip from 'chartist-plugin-tooltips-updated';
 
 let chart = new Chartist.Line('.ct-chart', data, {
   plugins: [
@@ -184,11 +184,9 @@ chart.on('draw', function(data) {
 
 ```javascript
 plugins: [
-      Chartist.plugins.tooltip({
-        appendToBody: true,
-        pointClass: 'my-cool-point'
-      })
-
-    ]
-
+  Chartist.plugins.tooltip({
+    appendToBody: true,
+    pointClass: 'my-cool-point'
+  })
+]
 ```
