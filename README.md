@@ -152,15 +152,23 @@ var chart = new Chartist.Line('.ct-chart', {
 ## Custom point element.
 
 In ChartistJS you can replace default element with smth different.
-There is a pretty [demo](https://gionkunz.github.io/chartist-js/examples.html) (*USING EVENTS TO REPLACE GRAPHICS*).
-And if you want the tooltip to work fine with a new element, you need to include two more properties:
+There is a pretty [demo](https://gionkunz.github.io/chartist-js/examples.html#example-line-modify-drawing) 
+(*USING EVENTS TO REPLACE GRAPHICS*).
+And if you want the tooltip to work fine with a new element, you need to include **two more properties**:
 
 ```javascript
 'ct:value': data.value.y,
 'ct:meta': data.meta,
 ```
 
-So the final code could look like this. Here is a [live demo](https://jsfiddle.net/AlexanderKozhevin/aapycL87/)
+AND you have to add the following **css rule** to the new element by using the `style` option 
+or by adding this rule to your css class: 
+
+```css
+pointer-events: all!important;
+```
+
+So the final code could look like this. Here is a [live demo](https://jsfiddle.net/9gzqnrd8/9/)
 ```javascript
 chart.on('draw', function(data) {
   // If the draw event was triggered from drawing a point on the line chart
@@ -173,6 +181,7 @@ chart.on('draw', function(data) {
       r: [5],
       'ct:value': data.value.y,
       'ct:meta': data.meta,
+      style: 'pointer-events: all !important',
       class: 'my-cool-point',
     }, 'ct-area');
 
