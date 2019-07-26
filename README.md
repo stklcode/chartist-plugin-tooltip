@@ -68,6 +68,11 @@ var chart = new Chartist.Line('.ct-chart', data, {
   ]
 });
 ```
+(WARNING: If you used the version 0.0.17 from NPM (latest) of the package `chartist-plugin-tooltips`. 
+The `s` of tooltips 
+[got removed](https://github.com/tmmdata/chartist-plugin-tooltip/commit/c476a2dd255134241e4238f562ac3cb8b617bc79) 
+in the plugin function: Chartist.plugins.tooltip~~s~~())
+
 2. or via a CommonJS import (like in NodeJS):
 ```js
 import Chartist from 'chartist';
@@ -147,7 +152,8 @@ var chart = new Chartist.Line('.ct-chart', {
 });
 ```
 
-
+If you change the css properties of the tooltip, you shouldn't change the `display` property, 
+otherwise the position of the tooltip will be wrong!
 
 ## Custom point element.
 
@@ -167,6 +173,8 @@ or by adding this rule to your css class:
 ```css
 pointer-events: all!important;
 ```
+
+(If you want to read more about, why you have to add this css rule take a look at [chartist-plugin-tooltip#72](https://github.com/tmmdata/chartist-plugin-tooltip/pull/72))
 
 So the final code could look like this. Here is a [live demo](https://jsfiddle.net/9gzqnrd8/9/)
 ```javascript
