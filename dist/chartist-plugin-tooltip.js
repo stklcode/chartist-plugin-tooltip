@@ -164,25 +164,24 @@
         width = width || $toolTip.offsetWidth;
         var offsetX = -width / 2 + options.tooltipOffset.x;
         var offsetY = -height + options.tooltipOffset.y;
-        var anchorX, anchorY;
 
-        if (!options.appendToBody) {
+        if ($toolTip.style.display !== 'absolute') {
+          $toolTip.style.display = 'absolute';
+        }
+
+        if (options.anchorToPoint && event.target.x2 && event.target.y2) {
           var box = $chart.getBoundingClientRect();
-          var left = event.pageX - box.left - window.pageXOffset;
-          var top = event.pageY - box.top - window.pageYOffset;
+          var left = event.target.x2.baseVal.value + box.left + window.pageXOffset;
+          var top = event.target.y2.baseVal.value + box.top + window.pageYOffset;
 
-          if (true === options.anchorToPoint && event.target.x2 && event.target.y2) {
-            anchorX = parseInt(event.target.x2.baseVal.value);
-            anchorY = parseInt(event.target.y2.baseVal.value);
-          }
-
-          $toolTip.style.top = (anchorY || top) + offsetY + 'px';
-          $toolTip.style.left = (anchorX || left) + offsetX + 'px';
+          $toolTip.style.left = left + offsetX + 'px';
+          $toolTip.style.top = top + offsetY + 'px';
         } else {
           $toolTip.style.top = event.pageY + offsetY + 'px';
           $toolTip.style.left = event.pageX + offsetX + 'px';
         }
       }
+
     }
   };
 
