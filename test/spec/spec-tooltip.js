@@ -25,7 +25,7 @@ describe('ctPointLabels', function () {
       listeners[event] = listener;
     };
 
-    var tooltip = window.Chartist.plugins.tooltip({class: 'foo'});
+    var tooltip = window.Chartist.plugins.tooltip({class: 'foo', appendToBody: false});
     tooltip(chart);
   });
 
