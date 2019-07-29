@@ -11,12 +11,12 @@
     currencyFormatCallback: undefined,
     tooltipOffset: {
       x: 0,
-      y: -20
+      y: -20,
     },
     anchorToPoint: false,
-    appendToBody: false,
+    appendToBody: true,
     class: undefined,
-    pointClass: 'ct-point'
+    pointClass: 'ct-point',
   };
 
   Chartist.plugins = Chartist.plugins || {};
@@ -24,6 +24,7 @@
     options = Chartist.extend({}, defaultOptions, options);
 
     return function tooltip(chart) {
+      // Warning: If you are using npm link or yarn link, these instanceof checks will fail and you won't any tooltips
       var tooltipSelector = options.pointClass;
       if (chart instanceof Chartist.Bar) {
         tooltipSelector = 'ct-bar';
@@ -37,10 +38,13 @@
       }
 
       var $chart = chart.container;
+      var $toolTipIsShown = false;
+      var $tooltipOffsetParent = offsetParent($chart);
       var $toolTip;
+
       if (!options.appendToBody) {
         // searching for existing tooltip in the chart, because appendToBody is disabled
-        $toolTip = $chart.querySelector('.chartist-tooltip')
+        $toolTip = $chart.querySelector('.chartist-tooltip');
       } else {
         // searching for existing tooltip in the body, because appendToBody is enabled
         $toolTip = document.querySelector('.chartist-tooltip');
@@ -124,6 +128,9 @@
           height = $toolTip.offsetHeight;
           width = $toolTip.offsetWidth;
 
+          if (options.appendToBody !== true) {
+            $tooltipOffsetParent = offsetParent($chart);
+          }
           setPosition(event);
           show($toolTip);
 
@@ -138,8 +145,9 @@
       });
 
       on('mousemove', null, function (event) {
-        if (false === options.anchorToPoint)
+        if (options.anchorToPoint === false && $toolTipIsShown) {
           setPosition(event);
+        }
       });
 
       function setPosition(event) {
@@ -152,33 +160,69 @@
           $toolTip.style.display = 'absolute';
         }
 
-        if (options.anchorToPoint && event.target.x2 && event.target.y2) {
-          var box = $chart.getBoundingClientRect();
-          var left = event.target.x2.baseVal.value + box.left + window.pageXOffset;
-          var top = event.target.y2.baseVal.value + box.top + window.pageYOffset;
+        var anchor = options.anchorToPoint === true && event.target.x2 && event.target.y2;
 
-          $toolTip.style.left = left + offsetX + 'px';
-          $toolTip.style.top = top + offsetY + 'px';
+        if (options.appendToBody === true) {
+          if (anchor) {
+            var box = $chart.getBoundingClientRect();
+            var left = event.target.x2.baseVal.value + box.left + window.pageXOffset;
+            var top = event.target.y2.baseVal.value + box.top + window.pageYOffset;
+
+            $toolTip.style.left = left + offsetX + 'px';
+            $toolTip.style.top = top + offsetY + 'px';
+          } else {
+            $toolTip.style.left = event.pageX + offsetX + 'px';
+            $toolTip.style.top = event.pageY + offsetY + 'px';
+          }
         } else {
-          $toolTip.style.top = event.pageY + offsetY + 'px';
-          $toolTip.style.left = event.pageX + offsetX + 'px';
+          var offsetBox = $tooltipOffsetParent.getBoundingClientRect();
+          var allOffsetLeft = -offsetBox.left - window.scrollX + offsetX;
+          var allOffsetTop = -offsetBox.top - window.scrollY + offsetY;
+
+          if (anchor) {
+            var box = $chart.getBoundingClientRect();
+            var left = event.target.x2.baseVal.value + box.left + window.pageXOffset;
+            var top = event.target.y2.baseVal.value + box.top + window.pageYOffset;
+
+            $toolTip.style.left = left + allOffsetLeft + 'px';
+            $toolTip.style.top = top + allOffsetTop + 'px';
+          } else {
+            $toolTip.style.left = event.pageX + allOffsetLeft + 'px';
+            $toolTip.style.top = event.pageY + allOffsetTop + 'px';
+          }
         }
       }
 
-    }
+      /**
+       * Shows the tooltip element, if not shown
+       * @param element
+       */
+      function show(element) {
+        $toolTipIsShown = true;
+        if (!hasClass(element, 'tooltip-show')) {
+          element.className = element.className + ' tooltip-show';
+        }
+      }
+
+      /**
+       * Hides the tooltip element
+       * @param element
+       */
+      function hide(element) {
+        $toolTipIsShown = false;
+        var regex = new RegExp('tooltip-show' + '\\s*', 'gi');
+        element.className = element.className.replace(regex, '').trim();
+      }
+
+    };
   };
 
-  function show(element) {
-    if (!hasClass(element, 'tooltip-show')) {
-      element.className = element.className + ' tooltip-show';
-    }
-  }
-
-  function hide(element) {
-    var regex = new RegExp('tooltip-show' + '\\s*', 'gi');
-    element.className = element.className.replace(regex, '').trim();
-  }
-
+  /**
+   * Returns whether a element has a css class called className
+   * @param element
+   * @param className
+   * @return {boolean}
+   */
   function hasClass(element, className) {
     return (' ' + element.getAttribute('class') + ' ').indexOf(' ' + className + ' ') > -1;
   }
@@ -190,8 +234,40 @@
     return element;
   }
 
+  /**
+   *
+   * @param element
+   * @return {string | string}
+   */
   function text(element) {
     return element.innerText || element.textContent;
+  }
+
+  /**
+   * Returns the first positioned parent of the element
+   * @return HTMLElement
+   */
+  function offsetParent(elem) {
+    if (offsetParent in elem) {
+      // Using the native property if possible
+      var parent = elem.offsetParent;
+
+      if (!parent) {
+        parent = document.body.parentElement;
+      }
+
+      return parent;
+    }
+
+    var parent = elem.parentNode;
+
+    if (window.getComputedStyle(parent).position !== 'static') {
+      return parent;
+    } else if (parent.tagName === 'BODY') {
+      return parent.parentElement;
+    } else {
+      return offsetParent(parent);
+    }
   }
 
 }(window, document, Chartist));
