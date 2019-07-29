@@ -75,6 +75,7 @@ describe('ctPointLabels', function () {
   it('should set tooltip position', function() {
     event.pageX = 100;
     event.pageY = 200;
+    listeners['mouseover'](event);
     listeners['mousemove'](event);
     expect(getTooltip().style.left).toMatch(/^\d+px$/);
     expect(getTooltip().style.top).toMatch(/^\d+px$/);

@@ -260,6 +260,9 @@
     }
 
     var parent = elem.parentNode;
+    if (!parent) {
+      return document.body.parentElement;
+    }
 
     if (window.getComputedStyle(parent).position !== 'static') {
       return parent;

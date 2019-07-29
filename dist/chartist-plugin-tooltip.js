@@ -193,8 +193,8 @@
           }
         } else {
           var offsetBox = $tooltipOffsetParent.getBoundingClientRect();
-          var allOffsetLeft = - offsetBox.left - window.scrollX + offsetX;
-          var allOffsetTop = - offsetBox.top - window.scrollY + offsetY;
+          var allOffsetLeft = -offsetBox.left - window.scrollX + offsetX;
+          var allOffsetTop = -offsetBox.top - window.scrollY + offsetY;
 
           if (anchor) {
             var box = $chart.getBoundingClientRect();
@@ -277,6 +277,9 @@
     }
 
     var parent = elem.parentNode;
+    if (!parent) {
+      return document.body.parentElement;
+    }
 
     if (window.getComputedStyle(parent).position !== 'static') {
       return parent;
