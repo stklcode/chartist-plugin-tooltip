@@ -13,7 +13,6 @@ module.exports = function (grunt) {
   return {
     dist: {
       src: [
-        'bower_components/chartist/dist/chartist.js',
         'node_modules/chartist/dist/chartist.js',
         '<%= pkg.config.src %>/scripts/<%= pkg.config.src_name %>.js'
       ],
