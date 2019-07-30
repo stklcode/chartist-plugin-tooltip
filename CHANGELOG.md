@@ -2,6 +2,12 @@
 
 ### master
 
+### 0.1.1
+
+* [BUGFIX] Fixed the wrong position of a tooltip when `appendToBody:true` is used
+* [CHANGE] The default value of `appendToBody` is now `true` (was `false`), because it's more efficent
+* [CHANGE] The css property `position` of tooltip now has be `absolute`
+
 ### 0.0.21
 * [BUGFIX] Fixed the position of the tooltips when there are multiple charts
 
@@ -11,6 +17,8 @@
 * [BUGFIX] Fixed memory leak
 * [ENHANCEMENT] Switched to Yarn
 * [ENHANCEMENT] Added less file to the dist folder
+* [CHANGE] The exported object is now called `Chartist.plugins.tooltip` instead of `Chartist.plugins.tooltips`. 
+The `s` at the end of the tooptip is now missing.
 
 ### 0.0.11
 * [BUGFIX] Tooltips now working properly on Firefox
