@@ -148,6 +148,9 @@
           if (options.appendToBody !== true) {
             $tooltipOffsetParent = offsetParent($chart);
           }
+          if ($toolTip.style.display !== 'absolute') {
+            $toolTip.style.display = 'absolute';
+          }
           setPosition(event);
           show($toolTip);
 
@@ -172,10 +175,6 @@
         width = width || $toolTip.offsetWidth;
         var offsetX = -width / 2 + options.tooltipOffset.x;
         var offsetY = -height + options.tooltipOffset.y;
-
-        if ($toolTip.style.display !== 'absolute') {
-          $toolTip.style.display = 'absolute';
-        }
 
         var anchor = options.anchorToPoint === true && event.target.x2 && event.target.y2;
 
