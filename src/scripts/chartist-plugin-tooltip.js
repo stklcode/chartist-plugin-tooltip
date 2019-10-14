@@ -31,7 +31,8 @@
       } else if (chart instanceof Chartist.Pie) {
         // Added support for donut graph
         if (chart.options.donut) {
-          tooltipSelector = 'ct-slice-donut';
+          // Added support or SOLID donut graph
+          tooltipSelector = chart.options.donutSolid ? 'ct-slice-donut-solid' : 'ct-slice-donut';
         } else {
           tooltipSelector = 'ct-slice-pie';
         }
