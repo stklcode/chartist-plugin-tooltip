@@ -31,7 +31,7 @@
     }
   ],
   "dependencies": {
-    "chartist": "~0.11.3"
+    "chartist": "0.11.4"
   },
   "devDependencies": {
     "coffeescript": "^2.4.1",
@@ -46,7 +46,7 @@
     "jasmine-fixture": "~2.0.0",
     "jshint-stylish": "~2.2.1",
     "load-grunt-config": "3.0.0",
-    "node-sass": "^4.12.0",
+    "node-sass": "4.13.0",
     "time-grunt": "^2.0.0"
   },
   "engines": {
