@@ -2,6 +2,10 @@
 
 ### master
 
+### 0.1.2
+
+* [ENHANCEMENT] Added support for the solid donut graph
+
 ### 0.1.1
 
 * [BUGFIX] Fixed the wrong position of a tooltip when `appendToBody:true` is used
