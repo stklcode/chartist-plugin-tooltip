@@ -78,7 +78,7 @@ var chart = new Chartist.Line('.ct-chart', data, {
 (WARNING: If you used the version 0.0.17 from NPM (latest) of the package `chartist-plugin-tooltips`. 
 The `s` of tooltips 
 [got removed](https://github.com/tmmdata/chartist-plugin-tooltip/commit/c476a2dd255134241e4238f562ac3cb8b617bc79) 
-in the plugin function: Chartist.plugins.tooltip~~s~~())
+in the plugin function: ~~Chartist.plugins.tooltips~~())
 
 2. or via a CommonJS import (like in NodeJS):
 ```js
