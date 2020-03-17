@@ -34,8 +34,8 @@
     "chartist": "0.11.4"
   },
   "devDependencies": {
-    "coffeescript": "^2.4.1",
-    "grunt": "^1.0.4",
+    "coffeescript": "2.5.1",
+    "grunt": "1.1.0",
     "grunt-contrib-clean": "^2.0.0",
     "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-jasmine": "2.1.0",
@@ -45,8 +45,8 @@
     "grunt-umd": "~3.0.0",
     "jasmine-fixture": "~2.0.0",
     "jshint-stylish": "~2.2.1",
-    "load-grunt-config": "3.0.0",
-    "node-sass": "4.13.0",
+    "load-grunt-config": "3.0.1",
+    "node-sass": "4.13.1",
     "time-grunt": "^2.0.0"
   },
   "engines": {
