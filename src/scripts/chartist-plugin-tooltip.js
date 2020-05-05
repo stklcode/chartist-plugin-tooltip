@@ -176,8 +176,8 @@
           }
         } else {
           var offsetBox = $tooltipOffsetParent.getBoundingClientRect();
-          var allOffsetLeft = -offsetBox.left - window.scrollX + offsetX;
-          var allOffsetTop = -offsetBox.top - window.scrollY + offsetY;
+          var allOffsetLeft = -offsetBox.left - window.pageXOffset + offsetX;
+          var allOffsetTop = -offsetBox.top - window.pageYOffset + offsetY;
 
           if (anchor) {
             var box = $chart.getBoundingClientRect();
