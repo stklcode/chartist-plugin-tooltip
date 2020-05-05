@@ -2,6 +2,10 @@
 
 ### master
 
+### 0.1.3
+
+* [ENCHANTMENT] Added supports for the IE11 - [#9](https://github.com/LukBukkit/chartist-plugin-tooltip/pull/9) 
+
 ### 0.1.2
 
 * [ENHANCEMENT] Added support for the solid donut graph
