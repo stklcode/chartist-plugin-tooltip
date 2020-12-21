@@ -2,6 +2,11 @@
 
 ### master
 
+### 0.1.4
+
+* [ENCHANTMENT] Upgraded a lot of dependencies
+* [ENCHANTMENT] Minimized JavaScript file did shrink ~100 Bytes (3771 Bytes -> 3678 Bytes)
+
 ### 0.1.3
 
 * [ENCHANTMENT] Added supports for the IE11 - [#9](https://github.com/LukBukkit/chartist-plugin-tooltip/pull/9) 
