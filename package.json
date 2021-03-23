@@ -52,7 +52,8 @@
   },
   "resolutions": {
     "minimist": "~1.2.5",
-    "lodash": "~4.17.19"
+    "lodash": "~4.17.19",
+    "ssri": "^8.0.1"
   },
   "engines": {
     "node": ">=0.10.0"
