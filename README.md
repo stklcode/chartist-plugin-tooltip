@@ -92,6 +92,11 @@ let chart = new Chartist.Line('.ct-chart', data, {
   ]
 });
 ```
+Dont forget to include the CSS files
+```
+"node_modules/chartist/dist/chartist.css",
+"node_modules/chartist-plugin-tooltips-updated/dist/chartist-plugin-tooltip.css"
+```
 
 #### And now you can use the different options for labels:
 
