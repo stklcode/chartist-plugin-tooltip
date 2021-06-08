@@ -98,6 +98,17 @@ Dont forget to include the CSS files
 "node_modules/chartist-plugin-tooltips-updated/dist/chartist-plugin-tooltip.css"
 ```
 
+1. in the `<head>` of your HTML file
+```
+<link rel="stylesheet" href="node_modules/chartist/dist/chartist.css">
+<link rel="stylesheet" href="node_modules/chartist-plugin-tooltips-updated/dist/chartist-plugin-tooltip.css">
+```
+2. as a [Webpack](https://webpack.js.org/loaders/style-loader/) CSS imports
+```
+import 'chartist/dist/chartist.css';
+import 'chartist-plugin-tooltips-updated/dist/chartist-plugin-tooltip.css';
+```
+
 #### And now you can use the different options for labels:
 
 With descriptive text:
