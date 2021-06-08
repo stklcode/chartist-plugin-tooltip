@@ -92,19 +92,19 @@ let chart = new Chartist.Line('.ct-chart', data, {
   ]
 });
 ```
-Dont forget to include the CSS files
+Don't forget to include the CSS files
 ```
 "node_modules/chartist/dist/chartist.css",
 "node_modules/chartist-plugin-tooltips-updated/dist/chartist-plugin-tooltip.css"
 ```
 
 1. in the `<head>` of your HTML file
-```
+```html
 <link rel="stylesheet" href="node_modules/chartist/dist/chartist.css">
 <link rel="stylesheet" href="node_modules/chartist-plugin-tooltips-updated/dist/chartist-plugin-tooltip.css">
 ```
-2. as a [Webpack](https://webpack.js.org/loaders/style-loader/) CSS imports
-```
+2. as [Webpack](https://webpack.js.org/loaders/style-loader/) CSS imports
+```js
 import 'chartist/dist/chartist.css';
 import 'chartist-plugin-tooltips-updated/dist/chartist-plugin-tooltip.css';
 ```
