@@ -21,7 +21,10 @@ module.exports = function (grunt) {
         helpers: '<%= pkg.config.test %>/spec/**/helper-*.js',
         phantomjs: {
           'ignore-ssl-errors': true
-        }
+        },
+        // https://github.com/gruntjs/grunt-contrib-jasmine/issues/339
+        version: '3.8.0',
+        noSandbox: true
       }
     }
   };
