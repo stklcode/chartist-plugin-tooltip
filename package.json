@@ -54,7 +54,9 @@
     "lodash": "^4.17.19",
     "ssri": "^8.0.1",
     "trim-newlines": "^4.0.2",
-    "tar": "^6.1.9"
+    "tar": "^6.1.9",
+    "shelljs": "^0.8.5",
+    "ansi-regex": "^5.0.1"
   },
   "engines": {
     "node": ">=0.10.0"
