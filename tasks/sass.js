@@ -9,9 +9,9 @@
 
 'use strict';
 
-const sass = require('node-sass');
+const sass = require('sass');
 
-module.exports = function (grunt) {
+module.exports = function () {
   return {
     options: {
       implementation: sass,
