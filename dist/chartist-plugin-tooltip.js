@@ -43,9 +43,9 @@
     return function tooltip(chart) {
       // Warning: If you are using npm link or yarn link, these instanceof checks will fail and you won't any tooltips
       var tooltipSelector = options.pointClass;
-      if (chart instanceof Chartist.Bar) {
+      if (chart instanceof Chartist.BarChart) {
         tooltipSelector = 'ct-bar';
-      } else if (chart instanceof Chartist.Pie) {
+      } else if (chart instanceof Chartist.PieChart) {
         // Added support for donut graph
         if (chart.options.donut) {
           // Added support for the solid donut graph
@@ -92,7 +92,7 @@
         var $point = event.target;
         var tooltipText = '';
 
-        var isPieChart = (chart instanceof Chartist.Pie) ? $point : $point.parentNode;
+        var isPieChart = (chart instanceof Chartist.PieChart) ? $point : $point.parentNode;
         var seriesName = (isPieChart) ? $point.parentNode.getAttribute('ct:meta') || $point.parentNode.getAttribute('ct:series-name') : '';
         var meta = $point.getAttribute('ct:meta') || seriesName || '';
         var hasMeta = !!meta;
@@ -118,7 +118,7 @@
           } else {
             // For Pie Charts also take the labels into account
             // Could add support for more charts here as well!
-            if (chart instanceof Chartist.Pie) {
+            if (chart instanceof Chartist.PieChart) {
               var label = next($point, 'ct-label');
               if (label) {
                 tooltipText += text(label) + '<br>';
