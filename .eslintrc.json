@@ -1,5 +1,8 @@
 {
-  "extends": ["eslint:recommended", "plugin:prettier/recommended"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:prettier/recommended"
+  ],
   "env": {
     "es6": true,
     "browser": true
@@ -37,10 +40,14 @@
   "overrides": [
     {
       "files": ["test/**/*.js"],
-      "plugins": ["jasmine"],
-      "extends": ["plugin:jasmine/recommended"],
+      "plugins": [
+        "jest",
+        "jest-dom"
+      ],
+      "extends": ["plugin:jest-dom/recommended"],
       "env": {
-        "jasmine": true
+        "jest/globals": true,
+        "node": true
       },
       "rules": {
         "no-console": 0,

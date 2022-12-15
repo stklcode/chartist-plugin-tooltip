@@ -1,0 +1,15 @@
+{
+  "testEnvironment": "jsdom",
+  "testRegex": "test/.*\\.spec\\.js?$",
+  "transform": {},
+  "collectCoverage": true,
+  "collectCoverageFrom": [
+    "src/**/*.js",
+    "!**/node_modules/**",
+    "!**/*.stories.*"
+  ],
+  "coverageReporters": [
+    "lcovonly",
+    "text"
+  ]
+}
