@@ -1,3 +1,6 @@
+window.Chartist = require('chartist');
+require('../../src/scripts/chartist-plugin-tooltip');
+
 describe('ctPointLabels', function () {
   'use strict';
 
