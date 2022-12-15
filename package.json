@@ -58,6 +58,7 @@
   "scripts": {
     "build": "grunt build",
     "test": "grunt test",
+    "prepare": "grunt build",
     "preversion": "grunt test",
     "version": "grunt build && git add -A ."
   },
