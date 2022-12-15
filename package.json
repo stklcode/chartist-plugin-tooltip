@@ -34,21 +34,28 @@
     "chartist": "^1.0.0"
   },
   "devDependencies": {
+    "eslint": "^10.1.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
     "grunt": "^1.6.1",
     "grunt-contrib-clean": "^2.0.1",
     "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-jshint": "^3.2.0",
     "grunt-contrib-uglify": "^5.2.2",
+    "grunt-eslint": "^26.0.0",
     "grunt-sass": "^4.0.0",
     "grunt-umd": "^3.0.0",
     "jasmine-fixture": "^2.0.0",
     "jshint-stylish": "^2.2.1",
     "load-grunt-config": "^4.0.1",
+    "prettier": "^3.8.1",
     "sass": "^1.79.4",
     "time-grunt": "^2.0.0"
   },
   "scripts": {
     "build": "grunt build",
+    "format": "prettier --write 'src/**/*.js'",
+    "lint": "grunt lint",
     "prepare": "grunt build",
     "version": "grunt build && git add -A ."
   },
