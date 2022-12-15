@@ -18,9 +18,14 @@ module.exports = {
     'uglify:dist'
   ],
 
-  //tests
+  // tests
   'test': [
     'clean:tmp',
     'jasmine'
+  ],
+
+  // lint
+  'lint': [
+    'eslint'
   ]
 };
