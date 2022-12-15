@@ -1,15 +1,15 @@
 describe('ctPointLabels', function () {
   'use strict';
 
-  var chart;
-  var listeners;
-  var event;
+  let chart;
+  let listeners;
+  let event;
 
   beforeEach(function () {
     listeners = {};
     chart = {
-      container : document.createElement('div'),
-      on : function(event) {}
+      container: document.createElement('div'),
+      on: function () {}
     };
     event = {
       target: document.createElement('div')
@@ -21,11 +21,14 @@ describe('ctPointLabels', function () {
       layerX: 0
     };
 
-    chart.container.addEventListener = function(event, listener) {
+    chart.container.addEventListener = function (event, listener) {
       listeners[event] = listener;
     };
 
-    var tooltip = window.Chartist.plugins.tooltip({class: 'foo', appendToBody: false});
+    let tooltip = window.Chartist.plugins.tooltip({
+      class: 'foo',
+      appendToBody: false
+    });
     tooltip(chart);
   });
 
@@ -34,54 +37,61 @@ describe('ctPointLabels', function () {
   }
 
   function hasClass(el, cls) {
-    return el.className && new RegExp("(\\s|^)" + cls + "(\\s|$)").test(el.className);
+    return (
+      el.className && new RegExp('(\\s|^)' + cls + '(\\s|$)').test(el.className)
+    );
   }
 
   it('should be defined in chartist', function () {
     expect(window.Chartist.plugins.tooltip).toBeDefined();
   });
 
-  it('should append tooltip', function() {
+  it('should append tooltip', function () {
     expect(getTooltip()).toBeDefined();
   });
 
-  it('should not append tooltip twice', function() {
+  it('should not append tooltip twice', function () {
     expect(getTooltip()).toBeDefined();
     window.Chartist.plugins.tooltip()(chart);
-    var all = chart.container.querySelectorAll('div.chartist-tooltip');
+    let all = chart.container.querySelectorAll('div.chartist-tooltip');
+
     expect(all.length).toBe(1);
   });
 
-  it('should hide tooltip', function() {
+  it('should hide tooltip', function () {
     expect(hasClass(getTooltip(), 'tooltip-show')).toBe(false);
   });
 
-  it('should show tooltip on mouse enter', function() {
-    listeners['mouseover'](event);
+  it('should show tooltip on mouse enter', function () {
+    listeners.mouseover(event);
+
     expect(hasClass(getTooltip(), 'tooltip-show')).toBe(true);
   });
 
-  it('should hide tooltip on mouse leave', function() {
-    listeners['mouseover'](event);
-    listeners['mouseout'](event);
+  it('should hide tooltip on mouse leave', function () {
+    listeners.mouseover(event);
+    listeners.mouseout(event);
+
     expect(hasClass(getTooltip(), 'tooltip-show')).toBe(false);
   });
 
-  it('should set tooltip text', function() {
-    listeners['mouseover'](event);
+  it('should set tooltip text', function () {
+    listeners.mouseover(event);
+
     expect(getTooltip().innerHTML).toContain('42');
   });
 
-  it('should set tooltip position', function() {
+  it('should set tooltip position', function () {
     event.pageX = 100;
     event.pageY = 200;
-    listeners['mouseover'](event);
-    listeners['mousemove'](event);
+    listeners.mouseover(event);
+    listeners.mousemove(event);
+
     expect(getTooltip().style.left).toMatch(/^\d+px$/);
     expect(getTooltip().style.top).toMatch(/^\d+px$/);
   });
 
-  it('should set additional class', function(){
+  it('should set additional class', function () {
     expect(hasClass(getTooltip(), 'foo')).toBe(true);
   });
 });
