@@ -1,12 +1,11 @@
 {
   "testEnvironment": "jsdom",
-  "testRegex": "test/.*\\.spec\\.js?$",
-  "transform": {},
+  "testRegex": "test/.*\\.spec\\.ts?$",
+  "preset": "ts-jest",
   "collectCoverage": true,
   "collectCoverageFrom": [
-    "src/**/*.js",
-    "!**/node_modules/**",
-    "!**/*.stories.*"
+    "src/**/*.ts",
+    "!**/node_modules/**"
   ],
   "coverageReporters": [
     "lcovonly",

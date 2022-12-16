@@ -34,6 +34,9 @@
     "chartist": "^1.0.0"
   },
   "devDependencies": {
+    "@types/jest": "^29.2.4",
+    "@typescript-eslint/eslint-plugin": "^5.46.1",
+    "@typescript-eslint/parser": "^5.46.1",
     "copyfiles": "^2.4.1",
     "del": "^7.0.0",
     "del-cli": "^5.0.0",
@@ -47,15 +50,17 @@
     "minify": "^9.1.0",
     "prettier": "^2.8.1",
     "sass": "^1.62.1",
-    "terser": "^5.16.1"
+    "terser": "^5.16.1",
+    "ts-jest": "^29.0.3",
+    "typescript": "^4.9.4"
   },
   "scripts": {
     "clean": "del ./dist ./.tmp",
     "build": "yarn clean && yarn build:styles && yarn build:scripts",
-    "build:scripts": "terser -o dist/chartist-plugin-tooltip.js src/scripts/chartist-plugin-tooltip.js",
+    "build:scripts": "tsc && terser -o dist/chartist-plugin-tooltip.min.js dist/chartist-plugin-tooltip.js",
     "build:styles": "sass --no-source-map --style compressed src/styles:dist",
     "format": "prettier --write 'src/**/*.js' 'test/**/*.js'",
-    "lint": "eslint 'src/**/*.js' 'test/**/*.js'",
+    "lint": "eslint 'src/**/*.ts' 'test/**/*.ts'",
     "test": "jest -c jest.config.json",
     "prepare": "yarn build"
   },
