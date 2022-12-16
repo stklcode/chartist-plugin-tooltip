@@ -1,15 +1,17 @@
-import js from "@eslint/js";
+import eslint from "@eslint/js";
 import prettier from "eslint-config-prettier/flat";
 import globals from "globals";
+import tseslint from "typescript-eslint";
 
 export default [
-  js.configs.recommended,
+  eslint.configs.recommended,
+  ...tseslint.configs.recommended,
   prettier,
   {
-    files: ["src/scripts/*.js"],
+    files: ["src/scripts/*.ts"],
     languageOptions: {
       ecmaVersion: 2015,
-      sourceType: "script",
+      sourceType: "module",
       globals: {
         ...globals.browser
       }
@@ -43,7 +45,8 @@ export default [
       "no-trailing-spaces": 2,
       "space-before-blocks": 2,
       "spaced-comment": 1,
-      "no-var": 2
+      "no-var": 2,
+      '@typescript-eslint/no-explicit-any': 'off'
     }
   }
 ];

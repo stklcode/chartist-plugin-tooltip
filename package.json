@@ -1,7 +1,7 @@
 {
   "name": "chartist-plugin-tooltips-updated",
   "description": "Point Labels Plugin for Chartist.js",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "author": "LukBukkit & Markus Padourek",
   "homepage": "https://github.com/LukBukkit/chartist-plugin-tooltip",
   "repository": {
@@ -47,16 +47,18 @@
     "stylelint": "^17.5.0",
     "stylelint-config-standard-scss": "^17.0.0",
     "stylelint-scss": "^7.0.0",
-    "terser": "^5.46.1"
+    "terser": "^5.46.1",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.57.1"
   },
   "scripts": {
     "clean": "del ./dist ./.tmp",
     "build": "yarn clean && yarn build:styles && yarn build:scripts",
-    "build:scripts": "terser -o dist/chartist-plugin-tooltip.js src/scripts/chartist-plugin-tooltip.js",
+    "build:scripts": "tsc && terser -o dist/chartist-plugin-tooltip.min.js dist/chartist-plugin-tooltip.js",
     "build:styles": "sass --no-source-map --style compressed src/styles:dist",
-    "format": "prettier --write 'src/**/*.js'",
+    "format": "prettier --write 'src/**/*.ts'",
     "lint": "yarn lint:scripts && yarn lint:styles",
-    "lint:scripts": "eslint 'src/scripts/**/*.js'",
+    "lint:scripts": "eslint 'src/scripts/**/*.ts'",
     "lint:styles": "stylelint 'src/styles/**/*.scss'",
     "prepare": "yarn build"
   },
