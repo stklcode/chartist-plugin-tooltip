@@ -1,5 +1,8 @@
-import {BarChart, LineChart, PieChart} from 'chartist';
-import {ChartistPluginTooltip, Options} from "../../src/scripts/chartist-plugin-tooltip";
+import { BarChart, LineChart, PieChart } from 'chartist';
+import {
+  ChartistPluginTooltip,
+  Options
+} from '../../src/scripts/chartist-plugin-tooltip';
 
 describe('Tooltip Plugin', () => {
   beforeAll(() => {
@@ -13,15 +16,15 @@ describe('Tooltip Plugin', () => {
         removeListener: jest.fn(), // deprecated
         addEventListener: jest.fn(),
         removeEventListener: jest.fn(),
-        dispatchEvent: jest.fn(),
-      })),
+        dispatchEvent: jest.fn()
+      }))
     });
   });
 
   describe('for LineChart', () => {
     let chartContainer: HTMLElement;
     let tooltip: HTMLElement | null;
-    const listeners: {[key: string]: EventListener} = {};
+    const listeners: { [key: string]: EventListener } = {};
 
     beforeAll(() => {
       // Create container DIV.
@@ -29,7 +32,10 @@ describe('Tooltip Plugin', () => {
       chartContainer.id = 'chart';
       chartContainer.style.height = '100px';
       chartContainer.style.width = '500px';
-      (chartContainer as any).addEventListener = (type: string, listener: EventListener) => {
+      (chartContainer as any).addEventListener = (
+        type: string,
+        listener: EventListener
+      ) => {
         listeners[type] = listener;
       };
       document.body.innerHTML = '';
@@ -46,9 +52,7 @@ describe('Tooltip Plugin', () => {
         {
           low: 0,
           showArea: true,
-          plugins: [
-            ChartistPluginTooltip
-          ]
+          plugins: [ChartistPluginTooltip]
         }
       );
 
@@ -72,13 +76,15 @@ describe('Tooltip Plugin', () => {
     });
 
     it('should not show tooltip on mouse enter', () => {
-      listeners.mouseover({target: (chartContainer as EventTarget)} as MouseEvent);
+      listeners.mouseover({
+        target: chartContainer as EventTarget
+      } as MouseEvent);
       expect(tooltip?.classList).not.toContain('tooltip-show');
     });
 
     it('should show tooltip with mouse over a point', () => {
       listeners.mouseover({
-        target: (chartContainer.querySelector('.ct-point') as EventTarget),
+        target: chartContainer.querySelector('.ct-point') as EventTarget,
         pageX: 100,
         pageY: 200
       } as MouseEvent);
@@ -86,7 +92,9 @@ describe('Tooltip Plugin', () => {
     });
 
     it('should generate tooltip content', () => {
-      expect(tooltip?.innerHTML).toEqual('<span class="chartist-tooltip-value">5</span>');
+      expect(tooltip?.innerHTML).toEqual(
+        '<span class="chartist-tooltip-value">5</span>'
+      );
     });
 
     it('should set tooltip position', () => {
@@ -95,7 +103,9 @@ describe('Tooltip Plugin', () => {
     });
 
     it('should hide tooltip on mouse leave', () => {
-      listeners.mouseout({target: (chartContainer.querySelector('.ct-point') as EventTarget)} as MouseEvent);
+      listeners.mouseout({
+        target: chartContainer.querySelector('.ct-point') as EventTarget
+      } as MouseEvent);
       expect(tooltip?.classList).not.toContain('tooltip-show');
     });
   });
@@ -103,7 +113,7 @@ describe('Tooltip Plugin', () => {
   describe('for BarChart', () => {
     let chartContainer: HTMLElement;
     let tooltip: HTMLElement | null;
-    const listeners: {[key: string]: EventListener} = {};
+    const listeners: { [key: string]: EventListener } = {};
 
     beforeAll(() => {
       // Create container DIV.
@@ -111,7 +121,10 @@ describe('Tooltip Plugin', () => {
       chartContainer.id = 'chart';
       chartContainer.style.height = '100px';
       chartContainer.style.width = '500px';
-      (chartContainer as any).addEventListener = (type: string, listener: EventListener) => {
+      (chartContainer as any).addEventListener = (
+        type: string,
+        listener: EventListener
+      ) => {
         listeners[type] = listener;
       };
       document.body.innerHTML = '';
@@ -127,9 +140,7 @@ describe('Tooltip Plugin', () => {
         },
         {
           distributeSeries: true,
-          plugins: [
-            ChartistPluginTooltip
-          ]
+          plugins: [ChartistPluginTooltip]
         }
       );
 
@@ -152,13 +163,15 @@ describe('Tooltip Plugin', () => {
     });
 
     it('should not show tooltip on mouse enter', () => {
-      listeners.mouseover({target: (chartContainer as EventTarget)} as MouseEvent);
+      listeners.mouseover({
+        target: chartContainer as EventTarget
+      } as MouseEvent);
       expect(tooltip?.classList).not.toContain('tooltip-show');
     });
 
     it('should show tooltip with mouse over a point', () => {
       listeners.mouseover({
-        target: (chartContainer.querySelector('.ct-bar') as EventTarget),
+        target: chartContainer.querySelector('.ct-bar') as EventTarget,
         pageX: 200,
         pageY: 100
       } as MouseEvent);
@@ -166,7 +179,9 @@ describe('Tooltip Plugin', () => {
     });
 
     it('should generate tooltip content', () => {
-      expect(tooltip?.innerHTML).toEqual('<span class="chartist-tooltip-value">20</span>');
+      expect(tooltip?.innerHTML).toEqual(
+        '<span class="chartist-tooltip-value">20</span>'
+      );
     });
 
     it('should set tooltip position', () => {
@@ -175,7 +190,9 @@ describe('Tooltip Plugin', () => {
     });
 
     it('should hide tooltip on mouse leave', () => {
-      listeners.mouseout({target: (chartContainer.querySelector('.ct-bar') as EventTarget)} as MouseEvent);
+      listeners.mouseout({
+        target: chartContainer.querySelector('.ct-bar') as EventTarget
+      } as MouseEvent);
       expect(tooltip?.classList).not.toContain('tooltip-show');
     });
   });
@@ -183,7 +200,7 @@ describe('Tooltip Plugin', () => {
   describe('for PieChart', () => {
     let chartContainer: HTMLElement;
     let tooltip: HTMLElement | null;
-    const listeners: {[key: string]: EventListener} = {};
+    const listeners: { [key: string]: EventListener } = {};
 
     beforeAll(() => {
       // Create container DIV.
@@ -191,7 +208,10 @@ describe('Tooltip Plugin', () => {
       chartContainer.id = 'chart';
       chartContainer.style.height = '100px';
       chartContainer.style.width = '500px';
-      (chartContainer as any).addEventListener = (type: string, listener: EventListener) => {
+      (chartContainer as any).addEventListener = (
+        type: string,
+        listener: EventListener
+      ) => {
         listeners[type] = listener;
       };
       document.body.innerHTML = '';
@@ -207,9 +227,7 @@ describe('Tooltip Plugin', () => {
         },
         {
           labelInterpolationFnc: value => String(value)[0],
-          plugins: [
-            ChartistPluginTooltip
-          ]
+          plugins: [ChartistPluginTooltip]
         }
       );
 
@@ -232,13 +250,15 @@ describe('Tooltip Plugin', () => {
     });
 
     it('should not show tooltip on mouse enter', () => {
-      listeners.mouseover({target: (chartContainer as EventTarget)} as MouseEvent);
+      listeners.mouseover({
+        target: chartContainer as EventTarget
+      } as MouseEvent);
       expect(tooltip?.classList).not.toContain('tooltip-show');
     });
 
     it('should show tooltip with mouse over a point', () => {
       listeners.mouseover({
-        target: (chartContainer.querySelector('.ct-slice-pie') as EventTarget),
+        target: chartContainer.querySelector('.ct-slice-pie') as EventTarget,
         pageX: 150,
         pageY: 160
       } as MouseEvent);
@@ -246,7 +266,9 @@ describe('Tooltip Plugin', () => {
     });
 
     it('should generate tooltip content', () => {
-      expect(tooltip?.innerHTML).toEqual('<span class="chartist-tooltip-value">20</span>');
+      expect(tooltip?.innerHTML).toEqual(
+        '<span class="chartist-tooltip-value">20</span>'
+      );
     });
 
     it('should set tooltip position', () => {
@@ -255,7 +277,9 @@ describe('Tooltip Plugin', () => {
     });
 
     it('should hide tooltip on mouse leave', () => {
-      listeners.mouseout({target: (chartContainer.querySelector('.ct-slice-pie') as EventTarget)} as MouseEvent);
+      listeners.mouseout({
+        target: chartContainer.querySelector('.ct-slice-pie') as EventTarget
+      } as MouseEvent);
       expect(tooltip?.classList).not.toContain('tooltip-show');
     });
   });
@@ -263,7 +287,7 @@ describe('Tooltip Plugin', () => {
   describe('with custom options', () => {
     let chartContainer: HTMLElement;
     let tooltip: HTMLElement | null;
-    const listeners: {[key: string]: EventListener} = {};
+    const listeners: { [key: string]: EventListener } = {};
 
     beforeAll(() => {
       // Create container DIV.
@@ -271,7 +295,10 @@ describe('Tooltip Plugin', () => {
       chartContainer.id = 'chart';
       chartContainer.style.height = '100px';
       chartContainer.style.width = '500px';
-      (chartContainer as any).addEventListener = (type: string, listener: EventListener) => {
+      (chartContainer as any).addEventListener = (
+        type: string,
+        listener: EventListener
+      ) => {
         listeners[type] = listener;
       };
       document.body.innerHTML = '';
@@ -293,7 +320,10 @@ describe('Tooltip Plugin', () => {
               ChartistPluginTooltip,
               {
                 currency: '$',
-                currencyFormatCallback: (value: string, options: Options): string => options.currency + ' ' + value + ' (incl. VAT)',
+                currencyFormatCallback: (
+                  value: string,
+                  options: Options
+                ): string => options.currency + ' ' + value + ' (incl. VAT)',
                 tooltipOffset: {
                   x: 13,
                   y: 37
@@ -302,7 +332,8 @@ describe('Tooltip Plugin', () => {
                 appendToBody: false,
                 class: 'my-tooltip',
                 pointClass: 'ct-point',
-                transformTooltipTextFnc: (value: string): string => value + '.00'
+                transformTooltipTextFnc: (value: string): string =>
+                  value + '.00'
               }
             ]
           ]
@@ -327,13 +358,15 @@ describe('Tooltip Plugin', () => {
     });
 
     it('should not show tooltip on mouse enter', () => {
-      listeners.mouseover({target: (chartContainer as EventTarget)} as MouseEvent);
+      listeners.mouseover({
+        target: chartContainer as EventTarget
+      } as MouseEvent);
       expect(tooltip?.classList).not.toContain('tooltip-show');
     });
 
     it('should show tooltip with mouse over a point', () => {
       listeners.mouseover({
-        target: (chartContainer.querySelector('.ct-point') as EventTarget),
+        target: chartContainer.querySelector('.ct-point') as EventTarget,
         pageX: 100,
         pageY: 200
       } as MouseEvent);
@@ -341,7 +374,9 @@ describe('Tooltip Plugin', () => {
     });
 
     it('should generate tooltip content', () => {
-      expect(tooltip?.innerHTML).toEqual('<span class="chartist-tooltip-value">$ 5.00 (incl. VAT)</span>');
+      expect(tooltip?.innerHTML).toEqual(
+        '<span class="chartist-tooltip-value">$ 5.00 (incl. VAT)</span>'
+      );
     });
 
     it('should set tooltip position', () => {
@@ -350,7 +385,9 @@ describe('Tooltip Plugin', () => {
     });
 
     it('should hide tooltip on mouse leave', () => {
-      listeners.mouseout({target: (chartContainer.querySelector('.ct-point') as EventTarget)} as MouseEvent);
+      listeners.mouseout({
+        target: chartContainer.querySelector('.ct-point') as EventTarget
+      } as MouseEvent);
       expect(tooltip?.classList).not.toContain('tooltip-show');
     });
   });

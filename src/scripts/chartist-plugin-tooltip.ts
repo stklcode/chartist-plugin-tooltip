@@ -1,5 +1,5 @@
 import * as Chartist from 'chartist';
-import {BarChart, BaseChart, PieChart} from "chartist";
+import { BarChart, BaseChart, PieChart } from 'chartist';
 
 /**
  * Tooltip plugin options.
@@ -8,7 +8,7 @@ export interface Options {
   /**
    * Currency or unit suffix, e.h. '$', '€' or '%' to be appended to the value.
    */
-  currency?: string,
+  currency?: string;
   /**
    * Transformation function to be applied in combination with "currency".
    *
@@ -16,33 +16,33 @@ export interface Options {
    * @param options Plugin options.
    * @returns Tooltip value for output.
    */
-  currencyFormatCallback?: (value: string, options: Options) => string,
+  currencyFormatCallback?: (value: string, options: Options) => string;
   /**
    * Tooltip offset in px.
    * Default: x 0, y -20
    */
   tooltipOffset: {
-    x: number,
-    y: number
-  },
+    x: number;
+    y: number;
+  };
   /**
    * If set true, the tooltips will not follow mouse movement and be anchored to the target point or bar.
    */
-  anchorToPoint: boolean,
+  anchorToPoint: boolean;
   /**
    * Append tooltip container to body (default: true)
    */
-  appendToBody: boolean,
+  appendToBody: boolean;
   /**
    * Add custom class(es) to the tooltip.
    * Can be a single class "my-class" or a list ["class-1", "class-2"].
    */
-  class?: string | string[],
+  class?: string | string[];
   /**
    * Custom point class to append tooltips to.
    * If none is specified, the default class will be used depending on the chart type (e.g. "ct-point" for line charts).
    */
-  pointClass: string,
+  pointClass: string;
   /**
    * Custom function to generate tooltip (entire HTML markup).
    *
@@ -50,24 +50,27 @@ export interface Options {
    * @param value Point's value.
    * @returns Tooltip markup.
    */
-  tooltipFnc?: (meta: string, value: string) => string
+  tooltipFnc?: (meta: string, value: string) => string;
   /**
    * Custom function to generate tooltip text (content only).
    *
    * @param value Point's value.
    * @returns Tooltip text.
    */
-  transformTooltipTextFnc?: (value: string) => string,
+  transformTooltipTextFnc?: (value: string) => string;
   /**
    * Should the meta content be parsed as HTML (true) or plain text (false, default)
    */
-  metaIsHTML: boolean
+  metaIsHTML: boolean;
 }
 
 /**
  * Chartist.js plugin to display a data label on top of the points in a line chart.
  */
-export function ChartistPluginTooltip<T extends BaseChart<any>>(chart: T, options?: Partial<Options>): void {
+export function ChartistPluginTooltip<T extends BaseChart<any>>(
+  chart: T,
+  options?: Partial<Options>
+): void {
   const defaultOptions = {
     currency: undefined,
     currencyFormatCallback: undefined,
@@ -103,13 +106,13 @@ export function ChartistPluginTooltip<T extends BaseChart<any>>(chart: T, option
     }
   }
 
-  const $chart = ((chart as any).container as HTMLElement);
+  const $chart = (chart as any).container as HTMLElement;
   let $toolTipIsShown = false;
-  let $tooltipOffsetParent = ($chart.offsetParent as HTMLElement || $chart);
+  let $tooltipOffsetParent = ($chart.offsetParent as HTMLElement) || $chart;
   let $toolTip: HTMLElement;
 
   {
-    let tt: HTMLElement|null;
+    let tt: HTMLElement | null;
     if (!$options.appendToBody) {
       // searching for existing tooltip in the chart, because appendToBody is disabled
       tt = $chart.querySelector('.chartist-tooltip');
@@ -123,7 +126,7 @@ export function ChartistPluginTooltip<T extends BaseChart<any>>(chart: T, option
       tt.classList.add('chartist-tooltip');
       if ($options.class) {
         if (Array.isArray($options.class)) {
-          $options.class.forEach(function(c: string) {
+          $options.class.forEach(function (c: string) {
             tt?.classList.add(c);
           });
         } else {
@@ -145,110 +148,103 @@ export function ChartistPluginTooltip<T extends BaseChart<any>>(chart: T, option
 
   hide($toolTip);
 
-  $chart.addEventListener(
-    'mouseover',
-    function (event: MouseEvent): void {
-      if (!(event.target as HTMLElement).classList.contains(tooltipSelector)) {
-        return
+  $chart.addEventListener('mouseover', function (event: MouseEvent): void {
+    if (!(event.target as HTMLElement).classList.contains(tooltipSelector)) {
+      return;
+    }
+
+    const $point = event.target as HTMLElement;
+    let tooltipText = '';
+
+    let seriesName = '';
+    if (chart instanceof Chartist.PieChart) {
+      seriesName =
+        ($point.parentNode as HTMLElement).getAttribute('ct:meta') ||
+        ($point.parentNode as HTMLElement).getAttribute('ct:series-name') ||
+        '';
+    }
+    let meta = $point.getAttribute('ct:meta') || seriesName || '';
+    const hasMeta = !!meta;
+    let value = $point.getAttribute('ct:value') || '';
+
+    if (
+      $options.transformTooltipTextFnc &&
+      typeof $options.transformTooltipTextFnc === 'function'
+    ) {
+      value = $options.transformTooltipTextFnc(value);
+    }
+
+    if ($options.tooltipFnc && typeof $options.tooltipFnc === 'function') {
+      tooltipText = $options.tooltipFnc(meta, value);
+    } else {
+      if ($options.metaIsHTML) {
+        const txt = document.createElement('textarea');
+        txt.innerHTML = meta;
+        meta = txt.value;
       }
 
-      const $point = (event.target as HTMLElement);
-      let tooltipText = '';
+      meta = '<span class="chartist-tooltip-meta">' + meta + '</span>';
 
-      let seriesName = '';
-      if (chart instanceof Chartist.PieChart) {
-        seriesName = ($point.parentNode as HTMLElement).getAttribute('ct:meta') ||
-          ($point.parentNode as HTMLElement).getAttribute('ct:series-name') || '';
-      }
-      let meta = $point.getAttribute('ct:meta') || seriesName || '';
-      const hasMeta = !!meta;
-      let value = $point.getAttribute('ct:value') || '';
-
-      if (
-        $options.transformTooltipTextFnc &&
-        typeof $options.transformTooltipTextFnc === 'function'
-      ) {
-        value = $options.transformTooltipTextFnc(value);
-      }
-
-      if ($options.tooltipFnc && typeof $options.tooltipFnc === 'function') {
-        tooltipText = $options.tooltipFnc(meta, value);
+      if (hasMeta) {
+        tooltipText += meta + '<br>';
       } else {
-        if ($options.metaIsHTML) {
-          const txt = document.createElement('textarea');
-          txt.innerHTML = meta;
-          meta = txt.value;
-        }
-
-        meta = '<span class="chartist-tooltip-meta">' + meta + '</span>';
-
-        if (hasMeta) {
-          tooltipText += meta + '<br>';
-        } else {
-          // For Pie Charts also take the labels into account. Could add support for more charts here as well!
-          if (chart instanceof Chartist.PieChart) {
-            const label = next($point, 'ct-label');
-            if (label) {
-              tooltipText += text(label) + '<br>';
-            }
+        // For Pie Charts also take the labels into account. Could add support for more charts here as well!
+        if (chart instanceof Chartist.PieChart) {
+          const label = next($point, 'ct-label');
+          if (label) {
+            tooltipText += text(label) + '<br>';
           }
         }
+      }
 
-        if (value) {
-          if ($options.currency) {
-            if ($options.currencyFormatCallback !== undefined) {
-              value = $options.currencyFormatCallback(value, $options);
-            } else {
-              value =
-                $options.currency +
-                value.replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, '$1,');
-            }
+      if (value) {
+        if ($options.currency) {
+          if ($options.currencyFormatCallback !== undefined) {
+            value = $options.currencyFormatCallback(value, $options);
+          } else {
+            value =
+              $options.currency +
+              value.replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, '$1,');
           }
-          value = '<span class="chartist-tooltip-value">' + value + '</span>';
-          tooltipText += value;
         }
-      }
-
-      if ($toolTip && tooltipText) {
-        $toolTip.innerHTML = tooltipText;
-
-        // Calculate new width and height, as toolTip width/height may have changed with innerHTML change.
-        height = $toolTip.offsetHeight;
-        width = $toolTip.offsetWidth;
-
-        if (!$options.appendToBody) {
-          $tooltipOffsetParent = ($chart.offsetParent as HTMLElement || $chart);
-        }
-        if ($toolTip.style.display !== 'absolute') {
-          $toolTip.style.display = 'absolute';
-        }
-        setPosition(event);
-        show($toolTip);
-
-        // Remember height and width to avoid wrong position in IE
-        height = $toolTip.offsetHeight;
-        width = $toolTip.offsetWidth;
+        value = '<span class="chartist-tooltip-value">' + value + '</span>';
+        tooltipText += value;
       }
     }
-  );
 
-  $chart.addEventListener(
-    'mouseout',
-    function (event: MouseEvent) {
-      if ((event.target as HTMLElement).classList.contains(tooltipSelector)) {
-        $toolTip && hide($toolTip);
-      }
-    }
-  );
+    if ($toolTip && tooltipText) {
+      $toolTip.innerHTML = tooltipText;
 
-  $chart.addEventListener(
-    'mousemove',
-    function (event: MouseEvent): void {
-      if (!$options.anchorToPoint && $toolTipIsShown) {
-        setPosition(event);
+      // Calculate new width and height, as toolTip width/height may have changed with innerHTML change.
+      height = $toolTip.offsetHeight;
+      width = $toolTip.offsetWidth;
+
+      if (!$options.appendToBody) {
+        $tooltipOffsetParent = ($chart.offsetParent as HTMLElement) || $chart;
       }
+      if ($toolTip.style.display !== 'absolute') {
+        $toolTip.style.display = 'absolute';
+      }
+      setPosition(event);
+      show($toolTip);
+
+      // Remember height and width to avoid wrong position in IE
+      height = $toolTip.offsetHeight;
+      width = $toolTip.offsetWidth;
     }
-  );
+  });
+
+  $chart.addEventListener('mouseout', function (event: MouseEvent) {
+    if ((event.target as HTMLElement).classList.contains(tooltipSelector)) {
+      $toolTip && hide($toolTip);
+    }
+  });
+
+  $chart.addEventListener('mousemove', function (event: MouseEvent): void {
+    if (!$options.anchorToPoint && $toolTipIsShown) {
+      setPosition(event);
+    }
+  });
 
   function setPosition(event: MouseEvent) {
     height = height || $toolTip.offsetHeight;
@@ -256,13 +252,21 @@ export function ChartistPluginTooltip<T extends BaseChart<any>>(chart: T, option
     const offsetX = -width / 2 + $options.tooltipOffset.x;
     const offsetY = -height + $options.tooltipOffset.y;
 
-    const anchor = $options.anchorToPoint && event.target && (event.target as any).x2 && (event.target as any).y2;
+    const anchor =
+      $options.anchorToPoint &&
+      event.target &&
+      (event.target as any).x2 &&
+      (event.target as any).y2;
 
     if ($options.appendToBody) {
       if (anchor) {
         const box = $chart.getBoundingClientRect();
-        const left = (event.target as any).x2.baseVal.value + box.left + window.pageXOffset;
-        const top = (event.target as any).y2.baseVal.value + box.top + window.pageYOffset;
+        const left =
+          (event.target as any).x2.baseVal.value +
+          box.left +
+          window.pageXOffset;
+        const top =
+          (event.target as any).y2.baseVal.value + box.top + window.pageYOffset;
 
         $toolTip.style.left = left + offsetX + 'px';
         $toolTip.style.top = top + offsetY + 'px';
@@ -277,8 +281,12 @@ export function ChartistPluginTooltip<T extends BaseChart<any>>(chart: T, option
 
       if (anchor) {
         const box = $chart.getBoundingClientRect();
-        const left = (event.target as any).x2.baseVal.value + box.left + window.pageXOffset;
-        const top = (event.target as any).y2.baseVal.value + box.top + window.pageYOffset;
+        const left =
+          (event.target as any).x2.baseVal.value +
+          box.left +
+          window.pageXOffset;
+        const top =
+          (event.target as any).y2.baseVal.value + box.top + window.pageYOffset;
 
         $toolTip.style.left = left + allOffsetLeft + 'px';
         $toolTip.style.top = top + allOffsetTop + 'px';
@@ -309,7 +317,7 @@ export function ChartistPluginTooltip<T extends BaseChart<any>>(chart: T, option
 
   function next(element: HTMLElement, className: string) {
     do {
-      element = (element.nextSibling as HTMLElement);
+      element = element.nextSibling as HTMLElement;
     } while (element && !element.classList.contains(className));
 
     return element;

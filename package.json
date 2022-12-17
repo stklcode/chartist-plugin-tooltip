@@ -64,7 +64,7 @@
     "build:scripts": "tsc && terser -o dist/chartist-plugin-tooltip.min.js dist/chartist-plugin-tooltip.js",
     "build:styles": "sass --no-source-map --style compressed src/styles:dist",
     "build:umd": "rollup -c && terser -o dist/chartist-plugin-tooltip.umd.min.js dist/chartist-plugin-tooltip.umd.js",
-    "format": "prettier --write 'src/**/*.js' 'test/**/*.js'",
+    "format": "prettier --write 'src/**/*.ts' 'test/**/*.ts'",
     "lint": "yarn lint:scripts && yarn lint:styles",
     "lint:scripts": "eslint 'src/**/*.ts' 'test/**/*.ts'",
     "lint:styles": "stylelint 'src/styles/**/*.scss'",
