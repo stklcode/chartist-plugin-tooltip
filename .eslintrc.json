@@ -8,7 +8,10 @@
     "browser": true
   },
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
+  "plugins": [
+    "@typescript-eslint",
+    "eslint-plugin-tsdoc"
+  ],
   "rules": {
     "no-console": 2,
     "curly": 2,
@@ -37,7 +40,8 @@
     "no-trailing-spaces": 2,
     "space-before-blocks": 2,
     "spaced-comment": 1,
-    "no-var": 2
+    "no-var": 2,
+    "tsdoc/syntax": "warn"
   },
   "overrides": [
     {
