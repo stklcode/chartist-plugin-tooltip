@@ -12,8 +12,8 @@ export interface Options {
   /**
    * Transformation function to be applied in combination with "currency".
    *
-   * @param }value  The original value.
-   * @param options Plugin options.
+   * @param value - The original value.
+   * @param options - Plugin options.
    * @returns Tooltip value for output.
    */
   currencyFormatCallback?: (value: string, options: Options) => string;
@@ -46,15 +46,15 @@ export interface Options {
   /**
    * Custom function to generate tooltip (entire HTML markup).
    *
-   * @param meta  Point's meta value.
-   * @param value Point's value.
+   * @param meta - Point's meta value.
+   * @param value - Point's value.
    * @returns Tooltip markup.
    */
   tooltipFnc?: (meta: string, value: string) => string;
   /**
    * Custom function to generate tooltip text (content only).
    *
-   * @param value Point's value.
+   * @param value - Point's value.
    * @returns Tooltip text.
    */
   transformTooltipTextFnc?: (value: string) => string;
@@ -67,7 +67,7 @@ export interface Options {
 /**
  * Chartist.js plugin to display a data label on top of the points in a line chart.
  */
-export function ChartistPluginTooltip<T extends BaseChart<any>>(
+export function ChartistPluginTooltip<T extends BaseChart>(
   chart: T,
   options?: Partial<Options>
 ): void {
@@ -126,9 +126,7 @@ export function ChartistPluginTooltip<T extends BaseChart<any>>(
       tt.classList.add('chartist-tooltip');
       if ($options.class) {
         if (Array.isArray($options.class)) {
-          $options.class.forEach(function (c: string) {
-            tt?.classList.add(c);
-          });
+          $options.class.forEach((c: string): void => tt?.classList.add(c));
         } else {
           tt.classList.add($options.class);
         }
@@ -148,7 +146,7 @@ export function ChartistPluginTooltip<T extends BaseChart<any>>(
 
   hide($toolTip);
 
-  $chart.addEventListener('mouseover', function (event: MouseEvent): void {
+  $chart.addEventListener('mouseover', (event: MouseEvent): void => {
     if (!(event.target as HTMLElement).classList.contains(tooltipSelector)) {
       return;
     }
@@ -234,13 +232,13 @@ export function ChartistPluginTooltip<T extends BaseChart<any>>(
     }
   });
 
-  $chart.addEventListener('mouseout', function (event: MouseEvent) {
+  $chart.addEventListener('mouseout', (event: MouseEvent): void => {
     if ((event.target as HTMLElement).classList.contains(tooltipSelector)) {
       $toolTip && hide($toolTip);
     }
   });
 
-  $chart.addEventListener('mousemove', function (event: MouseEvent): void {
+  $chart.addEventListener('mousemove', (event: MouseEvent): void => {
     if (!$options.anchorToPoint && $toolTipIsShown) {
       setPosition(event);
     }
@@ -294,37 +292,48 @@ export function ChartistPluginTooltip<T extends BaseChart<any>>(
   }
 
   /**
-   * Shows the tooltip element, if not shown
-   * @param element
+   * Shows the tooltip element, if not shown.
+   *
+   * @param element - The HTML element to show
    */
-  function show(element: HTMLElement) {
+  function show(element: HTMLElement): void {
     $toolTipIsShown = true;
     element.classList.add('tooltip-show');
   }
 
   /**
-   * Hides the tooltip element
-   * @param element
+   * Hides the tooltip element.
+   *
+   * @param element - The HTML element to hide
    */
-  function hide(element: HTMLElement) {
+  function hide(element: HTMLElement): void {
     $toolTipIsShown = false;
     element.classList.remove('tooltip-show');
   }
 
-  function next(element: HTMLElement, className: string) {
+  /**
+   * Find the next element that has a specific class.
+   *
+   * @param element - Base element to start off the search
+   * @param className - Class name to search for
+   * @returns Matching HTML element of NULL, if none was found
+   */
+  function next(element: HTMLElement, className: string): HTMLElement | null {
+    let nextEl: HTMLElement | null = element;
     do {
-      element = element.nextSibling as HTMLElement;
-    } while (element && !element.classList.contains(className));
+      nextEl = element.nextSibling as HTMLElement | null;
+    } while (nextEl && !nextEl.classList.contains(className));
 
-    return element;
+    return nextEl;
   }
 
   /**
+   * Get textual content of an element.
    *
-   * @param element
-   * @return string
+   * @param element - HTML element to process
+   * @returns Text content of the element
    */
-  function text(element: HTMLElement) {
-    return element.innerText || element.textContent;
+  function text(element: HTMLElement): string {
+    return element.innerText || element.textContent || '';
   }
 }
