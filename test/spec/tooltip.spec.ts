@@ -284,6 +284,95 @@ describe('Tooltip Plugin', () => {
     });
   });
 
+  describe('for PieChart (Donut)', () => {
+    let chartContainer: HTMLElement;
+    let tooltip: HTMLElement | null;
+    const listeners: { [key: string]: EventListener } = {};
+
+    beforeAll(() => {
+      // Create container DIV.
+      chartContainer = document.createElement('div');
+      chartContainer.id = 'chart';
+      chartContainer.style.height = '100px';
+      chartContainer.style.width = '500px';
+      (chartContainer as any).addEventListener = (
+        type: string,
+        listener: EventListener
+      ) => {
+        listeners[type] = listener;
+      };
+      document.body.innerHTML = '';
+      document.body.appendChild(chartContainer);
+    });
+
+    it('should initialize with a Tooltip plugin', () => {
+      const chart = new PieChart(
+        chartContainer,
+        {
+          series: [20, 10, 30, 40]
+        },
+        {
+          donut: true,
+          donutWidth: 60,
+          startAngle: 270,
+          showLabel: true,
+          plugins: [ChartistPluginTooltip]
+        }
+      );
+
+      chart.initialize();
+
+      expect(chartContainer?.innerHTML).not.toEqual('');
+    });
+
+    it('should generate the tooltip element', () => {
+      tooltip = document.body.querySelector('.chartist-tooltip');
+      expect(tooltip).not.toBeNull();
+    });
+
+    it('should append the tooltip to the body by default', () => {
+      expect(tooltip?.parentElement).toBe(document.body);
+    });
+
+    it('should hide the tooltip', () => {
+      expect(tooltip?.classList).not.toContain('tooltip-show');
+    });
+
+    it('should not show tooltip on mouse enter', () => {
+      listeners.mouseover({
+        target: chartContainer as EventTarget
+      } as MouseEvent);
+      expect(tooltip?.classList).not.toContain('tooltip-show');
+    });
+
+    it('should show tooltip with mouse over a point', () => {
+      listeners.mouseover({
+        target: chartContainer.querySelector('.ct-slice-donut') as EventTarget,
+        pageX: 150,
+        pageY: 160
+      } as MouseEvent);
+      expect(tooltip?.classList).toContain('tooltip-show');
+    });
+
+    it('should generate tooltip content', () => {
+      expect(tooltip?.innerHTML).toEqual(
+        '<span class="chartist-tooltip-value">20</span>'
+      );
+    });
+
+    it('should set tooltip position', () => {
+      expect(tooltip?.style.left).toBe('150px');
+      expect(tooltip?.style.top).toBe('140px');
+    });
+
+    it('should hide tooltip on mouse leave', () => {
+      listeners.mouseout({
+        target: chartContainer.querySelector('.ct-slice-donut') as EventTarget
+      } as MouseEvent);
+      expect(tooltip?.classList).not.toContain('tooltip-show');
+    });
+  });
+
   describe('with custom options', () => {
     let chartContainer: HTMLElement;
     let tooltip: HTMLElement | null;
