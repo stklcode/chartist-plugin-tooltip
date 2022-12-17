@@ -5,18 +5,62 @@ import {BarChart, BaseChart, PieChart} from "chartist";
  * Tooltip plugin options.
  */
 export interface Options {
+  /**
+   * Currency or unit suffix, e.h. '$', '€' or '%' to be appended to the value.
+   */
   currency?: string,
-  currencyFormatCallback?: (value: string, options?: Options) => string,
+  /**
+   * Transformation function to be applied in combination with "currency".
+   *
+   * @param }value  The original value.
+   * @param options Plugin options.
+   * @returns Tooltip value for output.
+   */
+  currencyFormatCallback?: (value: string, options: Options) => string,
+  /**
+   * Tooltip offset in px.
+   * Default: x 0, y -20
+   */
   tooltipOffset: {
     x: number,
     y: number
   },
+  /**
+   * If set true, the tooltips will not follow mouse movement and be anchored to the target point or bar.
+   */
   anchorToPoint: boolean,
+  /**
+   * Append tooltip container to body (default: true)
+   */
   appendToBody: boolean,
-  class?: string,
+  /**
+   * Add custom class(es) to the tooltip.
+   * Can be a single class "my-class" or a list ["class-1", "class-2"].
+   */
+  class?: string | string[],
+  /**
+   * Custom point class to append tooltips to.
+   * If none is specified, the default class will be used depending on the chart type (e.g. "ct-point" for line charts).
+   */
   pointClass: string,
+  /**
+   * Custom function to generate tooltip (entire HTML markup).
+   *
+   * @param meta  Point's meta value.
+   * @param value Point's value.
+   * @returns Tooltip markup.
+   */
   tooltipFnc?: (meta: string, value: string) => string
+  /**
+   * Custom function to generate tooltip text (content only).
+   *
+   * @param value Point's value.
+   * @returns Tooltip text.
+   */
   transformTooltipTextFnc?: (value: string) => string,
+  /**
+   * Should the meta content be parsed as HTML (true) or plain text (false, default)
+   */
   metaIsHTML: boolean
 }
 
@@ -34,30 +78,34 @@ export function ChartistPluginTooltip<T extends BaseChart<any>>(chart: T, option
     anchorToPoint: false,
     appendToBody: true,
     class: undefined,
-    pointClass: 'ct-point'
+    pointClass: 'ct-point',
+    metaIsHTML: false
   };
 
   const $options = Chartist.extend({}, defaultOptions, options) as Options;
 
   let tooltipSelector = $options.pointClass;
 
-  if (chart instanceof BarChart) {
-    tooltipSelector = 'ct-bar';
-  } else if (chart instanceof PieChart) {
-    // Added support for donut graph
-    if ((chart as any).options.donut) {
-      // Added support for the solid donut graph
-      tooltipSelector = (chart as any).options.donutSolid
-        ? 'ct-slice-donut-solid'
-        : 'ct-slice-donut';
-    } else {
-      tooltipSelector = 'ct-slice-pie';
+  // Auto-detect default point class, if not explicitly overwritten in config.
+  if (!options?.pointClass) {
+    if (chart instanceof BarChart) {
+      tooltipSelector = 'ct-bar';
+    } else if (chart instanceof PieChart) {
+      // Added support for donut graph
+      if ((chart as any).options.donut) {
+        // Added support for the solid donut graph
+        tooltipSelector = (chart as any).options.donutSolid
+          ? 'ct-slice-donut-solid'
+          : 'ct-slice-donut';
+      } else {
+        tooltipSelector = 'ct-slice-pie';
+      }
     }
   }
 
   const $chart = ((chart as any).container as HTMLElement);
   let $toolTipIsShown = false;
-  let $tooltipOffsetParent = ($chart.offsetParent as HTMLElement);
+  let $tooltipOffsetParent = ($chart.offsetParent as HTMLElement || $chart);
   let $toolTip: HTMLElement;
 
   {
@@ -72,13 +120,20 @@ export function ChartistPluginTooltip<T extends BaseChart<any>>(chart: T, option
 
     if (!tt) {
       tt = document.createElement('div');
-      tt.className = !$options.class
-        ? 'chartist-tooltip'
-        : 'chartist-tooltip ' + $options.class;
-      if (!$options.appendToBody) {
-        $chart.appendChild(tt);
-      } else {
+      tt.classList.add('chartist-tooltip');
+      if ($options.class) {
+        if (Array.isArray($options.class)) {
+          $options.class.forEach(function(c: string) {
+            tt?.classList.add(c);
+          });
+        } else {
+          tt.classList.add($options.class);
+        }
+      }
+      if ($options.appendToBody) {
         document.body.appendChild(tt);
+      } else {
+        $chart.appendChild(tt);
       }
     }
 
@@ -130,8 +185,7 @@ export function ChartistPluginTooltip<T extends BaseChart<any>>(chart: T, option
         if (hasMeta) {
           tooltipText += meta + '<br>';
         } else {
-          // For Pie Charts also take the labels into account
-          // Could add support for more charts here as well!
+          // For Pie Charts also take the labels into account. Could add support for more charts here as well!
           if (chart instanceof Chartist.PieChart) {
             const label = next($point, 'ct-label');
             if (label) {
@@ -158,12 +212,12 @@ export function ChartistPluginTooltip<T extends BaseChart<any>>(chart: T, option
       if ($toolTip && tooltipText) {
         $toolTip.innerHTML = tooltipText;
 
-        // Calculate new width and height, as toolTip width/height may have changed with innerHTML change
+        // Calculate new width and height, as toolTip width/height may have changed with innerHTML change.
         height = $toolTip.offsetHeight;
         width = $toolTip.offsetWidth;
 
         if (!$options.appendToBody) {
-          $tooltipOffsetParent = ($chart.offsetParent as HTMLElement);
+          $tooltipOffsetParent = ($chart.offsetParent as HTMLElement || $chart);
         }
         if ($toolTip.style.display !== 'absolute') {
           $toolTip.style.display = 'absolute';
@@ -264,7 +318,7 @@ export function ChartistPluginTooltip<T extends BaseChart<any>>(chart: T, option
   /**
    *
    * @param element
-   * @return {string | string}
+   * @return string
    */
   function text(element: HTMLElement) {
     return element.innerText || element.textContent;
