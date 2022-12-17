@@ -1,12 +1,36 @@
-module.exports.default = {
+import pkg from './package.json' assert {type: "json"};
+import terser from '@rollup/plugin-terser';
+import typescript from '@rollup/plugin-typescript';
+
+export default {
   external: ['chartist'],
-  input: 'dist/chartist-plugin-tooltip.js',
-  output: {
-    format: 'umd',
-    file: 'dist/chartist-plugin-tooltip.umd.js',
-    name: 'ChartistPluginTooltip',
-    globals: {
-      chartist: 'Chartist'
+  input: pkg.main,
+  output: [
+    {
+      file: pkg.publishConfig.main,
+      format: 'cjs',
+      globals: {
+        chartist: 'Chartist'
+      },
+      sourcemap: true
+    },
+    {
+      file: pkg.publishConfig.module,
+      format: 'es',
+      globals: {
+        chartist: 'Chartist'
+      },
+      sourcemap: true
+    },
+    {
+      file: pkg.unpkg,
+      format: 'umd',
+      name: 'ChartistPluginTooltip',
+      globals: {
+        chartist: 'Chartist'
+      },
+      sourcemap: true
     }
-  }
+  ],
+  plugins: [typescript(), terser()]
 };

@@ -16,14 +16,32 @@
     "plugin",
     "tooltip"
   ],
+  "engines": {
+    "node": ">=14"
+  },
   "files": [
     "dist",
     "LICENSE",
     "package.json",
     "README.md"
   ],
-  "main": "dist/chartist-plugin-tooltip.js",
-  "browser": "dist/chartist-plugin-tooltip.js",
+  "main": "./src/scripts/chartist-plugin-tooltip.ts",
+  "types": "./dist/chartist-plugin-tooltip.d.ts",
+  "style": "./dist/chartist-plugin-tooltip.css",
+  "browser": "./dist/chartist-plugin-tooltip.js",
+  "unpkg": "./dist/chartist-plugin-tooltip.umd.js",
+  "publishConfig": {
+    "main": "./dist/chartist-plugin-tooltip.cjs",
+    "module": "./dist/chartist-plugin-tooltip.js",
+    "exports": {
+      ".": {
+        "require": "./dist/chartist-plugin-tooltip.cjs",
+        "import": "./dist/chartist-plugin-tooltip.js"
+      },
+      "./dist/*": "./dist/*"
+    },
+    "directory": "package"
+  },
   "licenses": [
     {
       "type": "MIT",
@@ -34,6 +52,8 @@
     "chartist": "^1.0.0"
   },
   "devDependencies": {
+    "@rollup/plugin-typescript": "^10.0.1",
+    "@rollup/plugin-terser": "0.1.0",
     "@types/jest": "^29.2.4",
     "@typescript-eslint/eslint-plugin": "^5.46.1",
     "@typescript-eslint/parser": "^5.46.1",
@@ -60,16 +80,15 @@
   },
   "scripts": {
     "clean": "del ./dist ./.tmp",
-    "build": "yarn clean && yarn build:styles && yarn build:scripts && yarn build:umd",
-    "build:scripts": "tsc && terser -o dist/chartist-plugin-tooltip.min.js dist/chartist-plugin-tooltip.js",
-    "build:styles": "sass --no-source-map --style compressed src/styles:dist",
-    "build:umd": "rollup -c && terser -o dist/chartist-plugin-tooltip.umd.min.js dist/chartist-plugin-tooltip.umd.js",
+    "build": "yarn clean && yarn build:styles && yarn build:scripts",
+    "build:scripts": "rollup -c",
+    "build:styles": "sass --style compressed src/styles:dist",
     "format": "prettier --write 'src/**/*.ts' 'test/**/*.ts'",
     "lint": "yarn lint:scripts && yarn lint:styles",
     "lint:scripts": "eslint 'src/**/*.ts' 'test/**/*.ts'",
     "lint:styles": "stylelint 'src/styles/**/*.scss'",
-    "test": "jest -c jest.config.json",
-    "prepare": "yarn build"
+    "prepublishOnly": "yarn test && yarn build",
+    "test": "jest -c jest.config.json"
   },
   "directories": {
     "test": "test"

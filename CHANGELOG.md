@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 * The plugin is now compatible with and requires Chartist v1 API
-* The plugin provides an ES module and UMD version
+* The plugin provides an ESM, CSJ and UMD version
 * Sources were converted to TypeScript
 
 ## [1.0.0] - 2nd January 2023
