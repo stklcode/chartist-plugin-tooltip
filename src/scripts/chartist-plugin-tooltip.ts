@@ -96,10 +96,7 @@ export default function ChartistPluginTooltip<T extends BaseChart<any>>(
   } else if (chart instanceof PieChart) {
     // Added support for donut graph
     if ((chart as any).options.donut) {
-      // Added support for the solid donut graph
-      tooltipSelector = (chart as any).options.donutSolid
-        ? 'ct-slice-donut-solid'
-        : 'ct-slice-donut';
+      tooltipSelector = 'ct-slice-donut';
     } else {
       tooltipSelector = 'ct-slice-pie';
     }
