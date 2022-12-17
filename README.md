@@ -1,65 +1,73 @@
-# Tooltip plugin for Chartist.js (Updated)
-[![Build Status](https://travis-ci.com/LukBukkit/chartist-plugin-tooltip.svg?branch=master)](https://travis-ci.com/LukBukkit/chartist-plugin-tooltip)
-[![npm](https://img.shields.io/npm/v/chartist-plugin-tooltips-updated.svg)](https://www.npmjs.com/package/chartist-plugin-tooltips-updated)
+# Tooltip plugin for Chartist.js
 
-[![NPM](https://nodei.co/npm/chartist-plugin-tooltips-updated.png)](https://nodei.co/npm/chartist-plugin-tooltips-updated/)
+[![Build Status](https://github.com/stklcode/chartist-plugin-tooltip/actions/workflows/nodejs.yml/badge.svg)](https://github.com/stklcode/chartist-plugin-tooltip/actions/workflows/nodejs.yml)
 
-
-This plugin provides quick and easy tooltips for your chartist charts. Touch support is planned soon.
+This plugin provides quick and easy tooltips for your chartist charts.
 
 Please visit http://gionkunz.github.io/chartist-js/plugins.html for more information.
 
-NPM package: https://www.npmjs.com/package/chartist-plugin-tooltips-updated
+NPM package: (not yet released)
+
 
 ## Why this fork?
-This repository is a fork of [tmmdata/chartist-plugin-tooltip](https://github.com/tmmdata/chartist-plugin-tooltip). 
-(Thanks for the great work!)
+This repository is a fork of [LukBukkit/chartist-plugin-tooltip](https://github.com/LukBukkit/chartist-plugin-tooltip)
+which is again a fork of the original [tmmdata/chartist-plugin-tooltip](https://github.com/tmmdata/chartist-plugin-tooltip). 
 
-It seems as this repository is no longer maintained, 
-that's why I decieded to fork it and **include serval pull requests** and
-**update the dependencies**.
+Thanks for the great work to all contributors so far!
 
-#### Included Pull Requests
+The original repository seems unmaintained for quite a while and the updated fork is not yet compatible with the changes
+introduced in Chartist v1.
 
-* [#87 Document new meta options](https://github.com/tmmdata/chartist-plugin-tooltip/pull/87) from meisanerd 
-* [#131 (feature) add chartist-plugin-tooltip.scss to dist folder](https://github.com/tmmdata/chartist-plugin-tooltip/pull/131) from Zadvornyi
-* [#136 Fix issue checking chart type when uglified](https://github.com/tmmdata/chartist-plugin-tooltip/pull/136) from jkowens
-* [#128 Fixes width/height being incorrect](https://github.com/tmmdata/chartist-plugin-tooltip/pull/128) from jdoyle65 
-* [#160 Fixed memory leak](https://github.com/tmmdata/chartist-plugin-tooltip/pull/160) from callanto
-* [#173 Adding support for SOLID donut graphs](https://github.com/tmmdata/chartist-plugin-tooltip/pull/173) from AlexLaforge
-* [#9 Add support to IE11](https://github.com/LukBukkit/chartist-plugin-tooltip/pull/9) from Borrajo
+Maybe one day, the fork will be merged again...
 
-#### More new exciting stuff
-* Upgrade to Yarn
-* Up-to-date dependencies
-* Latest version published on npm
 
 ## Available options and their defaults
 
-```javascript
-var defaultOptions = {
-  currency: undefined, //accepts '£', '$', '€', etc.
-  //e.g. 4000 => €4,000
+* **currency**: `string`
 
-  tooltipFnc: undefined, //accepts function
-  //build custom tooltip
+  Currency or unit suffix, e.h. '$', '€' or '%' to be appended to the value.
 
-  transformTooltipTextFnc: undefined, // accepts function
-  // transform tooltip text
+* **currencyFormatCallback**: `(value: string, options: Options) => string`
 
-  class: undefined, // accecpts 'class1', 'class1 class2', etc.
-  //adds class(es) to tooltip wrapper
+  Transformation function to be applied in combination with "currency".
 
-  anchorToPoint: false, //accepts true or false
-  //tooltips do not follow mouse movement -- they are anchored to the point / bar.
+* **tooltipOffset**: `{ x: number, y: number }`
 
-  appendToBody: true, //accepts true or false
-  //appends tooltips to body instead of chart container,
+  Tooltip offset in px. Default: `{ x: 0, y: -20 }`
 
-  metaIsHTML: false //accepts true or false
-  //Whether to parse the meta value as HTML or plain text
-};
-```
+* **anchorToPoint**: `boolean`
+
+  If set true, the tooltips will not follow mouse movement and be anchored to the target point or bar.
+  Default: `false`
+
+* **appendToBody**: `boolean`
+
+  Append tooltip container to body.
+  If not, the tooltip element will be added to the chart container.
+  Default: `true`
+
+* **class**: `string | string[]`
+
+  Add custom class(es) to the tooltip.
+  Can be a single class `"my-class"` or a list `["class-1", "class-2"]`.
+
+* **pointClass**: `string`
+
+  Custom point class to append tooltips to.
+  If none is specified, the default class will be used depending on the chart type (e.g. "ct-point" for line charts).
+
+* **tooltipFnc**: `(meta: string, value: string) => string`
+
+  Custom function to generate tooltip (entire HTML markup).
+
+* **transformTooltipTextFnc**: `(value: string) => string`
+
+  Custom function to generate tooltip text (content only).
+
+* **metaIsHTML**: `boolean`
+
+  Should the meta content be parsed as HTML (`true`) or plain text (`false`, default).
+
 
 ## Sample usage in Chartist.js
 
@@ -68,52 +76,60 @@ var defaultOptions = {
 `yarn add chartist-plugin-tooltips-updated`
 
 #### Then you can include this plugin...
-1. via `<script>` tag and the file `dist/chartist-plugin-tooltip.min.js`:
-```js
-var chart = new Chartist.Line('.ct-chart', data, {
-  plugins: [
-    Chartist.plugins.tooltip()
-  ]
-});
+1. via `<script>` tags loading the UMD versions of Chartist and the plugin:
+```html
+<html>
+  <head>
+    <script src="node_modules/chartist/dist/index.umd.js"></script>
+    <script src="node_modules/chartist-plugin-tooltip/dist/chartist-plugin-tooltip.umd.min.js"></script>
+    <script>
+      var chart = new Chartist.LineChart(
+        '#chart',
+        data,
+        {
+          plugins: [ ChartistPluginTooltip ]
+        }
+      );
+    </script>
+  </head>
+  <body>
+    <div id="chart"></div> 
+  </body>
+</html>
 ```
-(WARNING: If you used the version 0.0.17 from NPM (latest) of the package `chartist-plugin-tooltips`. 
-The `s` of tooltips 
-[got removed](https://github.com/tmmdata/chartist-plugin-tooltip/commit/c476a2dd255134241e4238f562ac3cb8b617bc79) 
-in the plugin function: ~~Chartist.plugins.tooltips~~())
 
-2. or via a CommonJS import (like in NodeJS):
+2. or via imports as ES module:
 ```js
-import Chartist from 'chartist';
-import ChartistTooltip from 'chartist-plugin-tooltips-updated';
+import { LineChart } from 'chartist';
+import { ChartistPluginTooltip } from 'chartist-plugin-tooltips';
 
-let chart = new Chartist.Line('.ct-chart', data, {
-  plugins: [
-    ChartistTooltip()
-  ]
-});
+const chart = new LineChart(
+  '.ct-chart',
+  data,
+  {
+    plugins: [ ChartistPluginTooltip ]
+  }
+);
 ```
-Don't forget to include the CSS files
-```
-"node_modules/chartist/dist/chartist.css",
-"node_modules/chartist-plugin-tooltips-updated/dist/chartist-plugin-tooltip.css"
-```
+
+Don't forget to include the CSS files, if you want default styling...
 
 1. in the `<head>` of your HTML file
 ```html
-<link rel="stylesheet" href="node_modules/chartist/dist/chartist.css">
-<link rel="stylesheet" href="node_modules/chartist-plugin-tooltips-updated/dist/chartist-plugin-tooltip.css">
+<link rel="stylesheet" href="node_modules/chartist/dist/index.css">
+<link rel="stylesheet" href="node_modules/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css">
 ```
 2. as [Webpack](https://webpack.js.org/loaders/style-loader/) CSS imports
 ```js
-import 'chartist/dist/chartist.css';
-import 'chartist-plugin-tooltips-updated/dist/chartist-plugin-tooltip.css';
+import 'chartist/dist/index.css';
+import 'chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css';
 ```
 
 #### And now you can use the different options for labels:
 
 With descriptive text:
 ```js
-var chart = new Chartist.Line('.ct-chart', {
+var chart = new LineChart('.ct-chart', {
   labels: [1, 2, 3],
   series: [
     [
@@ -129,14 +145,14 @@ var chart = new Chartist.Line('.ct-chart', {
   ]
 }, {
   plugins: [
-    Chartist.plugins.tooltip()
+    ChartistPluginTooltip
   ]
 });
 ```
 
 Without descriptive text:
 ```js
-var chart = new Chartist.Line('.ct-chart', {
+var chart = new LineChart('.ct-chart', {
   labels: [1, 2, 3, 4, 5, 6, 7],
   series: [
     [1, 5, 3, 4, 6, 2, 3],
@@ -144,7 +160,7 @@ var chart = new Chartist.Line('.ct-chart', {
   ]
 }, {
   plugins: [
-    Chartist.plugins.tooltip()
+    ChartistPluginTooltip
   ]
 });
 ```
@@ -167,11 +183,14 @@ var chart = new Chartist.Line('.ct-chart', {
   ]
 }, {
   plugins: [
-    Chartist.plugins.tooltip({
-      currency: '$',
-      class: 'class1 class2',
-      appendToBody: true
-    })
+    [
+      ChartistPluginTooltip,
+      {
+        currency: '$',
+        class: 'class1 class2',
+        appendToBody: true
+      }
+    ]
   ]
 });
 ```
@@ -191,20 +210,18 @@ And if you want the tooltip to work fine with a new element, you need to include
 'ct:meta': data.meta,
 ```
 
-AND you have to add the following **css rule** to the new element by using the `style` option 
+And you have to add the following **CSS rule** to the new element by using the `style` option 
 or by adding this rule to your css class: 
 
 ```css
 pointer-events: all!important;
 ```
 
-(If you want to read more about, why you have to add this css rule take a look at [chartist-plugin-tooltip#72](https://github.com/tmmdata/chartist-plugin-tooltip/pull/72))
-
-So the final code could look like this. Here is a [live demo](https://jsfiddle.net/9gzqnrd8/9/)
+So the final code could look like this.
 ```javascript
 chart.on('draw', function(data) {
   // If the draw event was triggered from drawing a point on the line chart
-  if(data.type === 'point') {
+  if (data.type === 'point') {
     // We are creating a new path SVG element that draws a triangle around the point coordinates
 
     var circle = new Chartist.Svg('circle', {
@@ -225,9 +242,12 @@ chart.on('draw', function(data) {
 
 ```javascript
 plugins: [
-  Chartist.plugins.tooltip({
-    appendToBody: true,
-    pointClass: 'my-cool-point'
-  })
+  [
+    ChartistPluginTooltip,
+    {
+      appendToBody: true,
+      pointClass: 'my-cool-point'
+    }
+  ]
 ]
 ```

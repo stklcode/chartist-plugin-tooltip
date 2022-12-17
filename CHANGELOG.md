@@ -1,6 +1,12 @@
 # Chartist Plugin Tooltip Changelog
 
-### master
+### unreleased
+
+* The plugin is now compatible with and requires Chartist v1 API
+* The plugin provides an ES module and UMD version
+* Sources were converted to TypeScript
+
+----
 
 ### 0.1.4
 
