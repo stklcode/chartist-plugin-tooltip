@@ -51,6 +51,9 @@
     "prettier": "^2.8.1",
     "rollup": "^3.7.5",
     "sass": "^1.56.2",
+    "stylelint": "^14.16.0",
+    "stylelint-config-standard-scss": "^6.1.0",
+    "stylelint-scss": "^4.3.0",
     "terser": "^5.16.1",
     "ts-jest": "^29.0.3",
     "typescript": "^4.9.4"
@@ -62,7 +65,9 @@
     "build:styles": "sass --no-source-map --style compressed src/styles:dist",
     "build:umd": "rollup -c && terser -o dist/chartist-plugin-tooltip.umd.min.js dist/chartist-plugin-tooltip.umd.js",
     "format": "prettier --write 'src/**/*.js' 'test/**/*.js'",
-    "lint": "eslint 'src/**/*.ts' 'test/**/*.ts'",
+    "lint": "yarn lint:scripts && yarn lint:styles",
+    "lint:scripts": "eslint 'src/**/*.ts' 'test/**/*.ts'",
+    "lint:styles": "stylelint 'src/styles/**/*.scss'",
     "test": "jest -c jest.config.json",
     "prepare": "yarn build"
   },
