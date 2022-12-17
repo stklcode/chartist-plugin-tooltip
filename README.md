@@ -81,7 +81,7 @@ Maybe one day, the fork will be merged again...
 <html>
   <head>
     <script src="node_modules/chartist/dist/index.umd.js"></script>
-    <script src="node_modules/chartist-plugin-tooltip/dist/chartist-plugin-tooltip.umd.min.js"></script>
+    <script src="node_modules/chartist-plugin-tooltip/dist/chartist-plugin-tooltip.umd.js"></script>
     <script>
       var chart = new Chartist.LineChart(
         '#chart',

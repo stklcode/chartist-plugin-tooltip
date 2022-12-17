@@ -3,7 +3,7 @@
 ### unreleased
 
 * The plugin is now compatible with and requires Chartist v1 API
-* The plugin provides an ES module and UMD version
+* The plugin provides an ESM, CSJ and UMD version
 * Sources were converted to TypeScript
 
 ----
