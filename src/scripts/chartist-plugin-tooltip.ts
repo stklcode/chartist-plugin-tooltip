@@ -23,7 +23,7 @@ export interface Options {
 /**
  * Chartist.js plugin to display a data label on top of the points in a line chart.
  */
-export function ChartistPluginTooltip<T extends BaseChart<any>>(
+export default function ChartistPluginTooltip<T extends BaseChart<any>>(
   chart: T,
   options?: Partial<Options>
 ): void {
