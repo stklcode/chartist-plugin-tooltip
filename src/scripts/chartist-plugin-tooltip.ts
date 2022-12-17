@@ -262,11 +262,9 @@ export function ChartistPluginTooltip<T extends BaseChart<any>>(
       if (anchor) {
         const box = $chart.getBoundingClientRect();
         const left =
-          (event.target as any).x2.baseVal.value +
-          box.left +
-          window.pageXOffset;
+          (event.target as any).x2.baseVal.value + box.left + window.scrollX;
         const top =
-          (event.target as any).y2.baseVal.value + box.top + window.pageYOffset;
+          (event.target as any).y2.baseVal.value + box.top + window.scrollY;
 
         $toolTip.style.left = left + offsetX + 'px';
         $toolTip.style.top = top + offsetY + 'px';
@@ -276,17 +274,15 @@ export function ChartistPluginTooltip<T extends BaseChart<any>>(
       }
     } else {
       const offsetBox = $tooltipOffsetParent.getBoundingClientRect();
-      const allOffsetLeft = -offsetBox.left - window.pageXOffset + offsetX;
-      const allOffsetTop = -offsetBox.top - window.pageYOffset + offsetY;
+      const allOffsetLeft = -offsetBox.left - window.scrollX + offsetX;
+      const allOffsetTop = -offsetBox.top - window.scrollY + offsetY;
 
       if (anchor) {
         const box = $chart.getBoundingClientRect();
         const left =
-          (event.target as any).x2.baseVal.value +
-          box.left +
-          window.pageXOffset;
+          (event.target as any).x2.baseVal.value + box.left + window.scrollX;
         const top =
-          (event.target as any).y2.baseVal.value + box.top + window.pageYOffset;
+          (event.target as any).y2.baseVal.value + box.top + window.scrollY;
 
         $toolTip.style.left = left + allOffsetLeft + 'px';
         $toolTip.style.top = top + allOffsetTop + 'px';
