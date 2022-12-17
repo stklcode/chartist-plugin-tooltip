@@ -23,14 +23,6 @@ Maybe one day, the fork will be merged again...
 
 ## Available options and their defaults
 
-* **currency**: `string`
-
-  Currency or unit suffix, e.h. '$', '€' or '%' to be appended to the value.
-
-* **currencyFormatCallback**: `(value: string, options: Options) => string`
-
-  Transformation function to be applied in combination with "currency".
-
 * **tooltipOffset**: `{ x: number, y: number }`
 
   Tooltip offset in px. Default: `{ x: 0, y: -20 }`

@@ -6,7 +6,8 @@
 * The plugin provides an ESM, CSJ and UMD version
 * The "class" option accepts a single class name or an array of class names
 * Sources were converted to TypeScript
-* replace deprecated properties "page{X,Y}Offset" with scroll{X,Y}
+* Replace deprecated properties "page{X,Y}Offset" with scroll{X,Y}
+* Dropped support for "currency" and "currencyFormatCallback" options (use "tooltipFnc" instead)
 
 ----
 
