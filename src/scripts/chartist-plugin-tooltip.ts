@@ -6,18 +6,6 @@ import { BarChart, BaseChart, PieChart } from 'chartist';
  */
 export interface Options {
   /**
-   * Currency or unit suffix, e.h. '$', '€' or '%' to be appended to the value.
-   */
-  currency?: string;
-  /**
-   * Transformation function to be applied in combination with "currency".
-   *
-   * @param value - The original value.
-   * @param options - Plugin options.
-   * @returns Tooltip value for output.
-   */
-  currencyFormatCallback?: (value: string, options: Options) => string;
-  /**
    * Tooltip offset in px.
    * Default: x 0, y -20
    */
@@ -72,8 +60,6 @@ export function ChartistPluginTooltip<T extends BaseChart>(
   options?: Partial<Options>
 ): void {
   const defaultOptions = {
-    currency: undefined,
-    currencyFormatCallback: undefined,
     tooltipOffset: {
       x: 0,
       y: -20
@@ -82,6 +68,8 @@ export function ChartistPluginTooltip<T extends BaseChart>(
     appendToBody: true,
     class: undefined,
     pointClass: 'ct-point',
+    tooltipFnc: undefined,
+    transformTooltipTextFnc: undefined,
     metaIsHTML: false
   };
 
@@ -194,15 +182,6 @@ export function ChartistPluginTooltip<T extends BaseChart>(
       }
 
       if (value) {
-        if ($options.currency) {
-          if ($options.currencyFormatCallback !== undefined) {
-            value = $options.currencyFormatCallback(value, $options);
-          } else {
-            value =
-              $options.currency +
-              value.replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, '$1,');
-          }
-        }
         value = '<span class="chartist-tooltip-value">' + value + '</span>';
         tooltipText += value;
       }

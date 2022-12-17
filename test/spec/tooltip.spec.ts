@@ -1,8 +1,5 @@
 import { BarChart, LineChart, PieChart } from 'chartist';
-import {
-  ChartistPluginTooltip,
-  Options
-} from '../../src/scripts/chartist-plugin-tooltip';
+import { ChartistPluginTooltip } from '../../src/scripts/chartist-plugin-tooltip';
 
 describe('Tooltip Plugin', () => {
   beforeAll(() => {
@@ -408,11 +405,6 @@ describe('Tooltip Plugin', () => {
             [
               ChartistPluginTooltip,
               {
-                currency: '$',
-                currencyFormatCallback: (
-                  value: string,
-                  options: Options
-                ): string => options.currency + ' ' + value + ' (incl. VAT)',
                 tooltipOffset: {
                   x: 13,
                   y: 37
@@ -422,7 +414,7 @@ describe('Tooltip Plugin', () => {
                 class: 'my-tooltip',
                 pointClass: 'ct-point',
                 transformTooltipTextFnc: (value: string): string =>
-                  value + '.00'
+                  '$ ' + value + '.00'
               }
             ]
           ]
@@ -464,7 +456,7 @@ describe('Tooltip Plugin', () => {
 
     it('should generate tooltip content', () => {
       expect(tooltip?.innerHTML).toEqual(
-        '<span class="chartist-tooltip-value">$ 5.00 (incl. VAT)</span>'
+        '<span class="chartist-tooltip-value">$ 5.00</span>'
       );
     });
 
