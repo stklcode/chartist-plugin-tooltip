@@ -1,119 +1,118 @@
-# Tooltip plugin for Chartist.js (Updated)
+# Tooltips for Chartist
 [![Build Status](https://travis-ci.com/LukBukkit/chartist-plugin-tooltip.svg?branch=master)](https://travis-ci.com/LukBukkit/chartist-plugin-tooltip)
 [![npm](https://img.shields.io/npm/v/chartist-plugin-tooltips-updated.svg)](https://www.npmjs.com/package/chartist-plugin-tooltips-updated)
 
-[![NPM](https://nodei.co/npm/chartist-plugin-tooltips-updated.png)](https://nodei.co/npm/chartist-plugin-tooltips-updated/)
+This plugin provides quick and easy tooltips for your [Chartist](https://github.com/chartist-js/chartist#readme) charts.
+It's published on npm as [chartist-plugin-tooltips-updated](https://www.npmjs.com/package/chartist-plugin-tooltips-updated).
 
+## Configuration Options
 
-This plugin provides quick and easy tooltips for your chartist charts. Touch support is planned soon.
-
-Please visit http://gionkunz.github.io/chartist-js/plugins.html for more information.
-
-NPM package: https://www.npmjs.com/package/chartist-plugin-tooltips-updated
-
-## Why this fork?
-This repository is a fork of [tmmdata/chartist-plugin-tooltip](https://github.com/tmmdata/chartist-plugin-tooltip). 
-(Thanks for the great work!)
-
-It seems as this repository is no longer maintained, 
-that's why I decieded to fork it and **include serval pull requests** and
-**update the dependencies**.
-
-#### Included Pull Requests
-
-* [#87 Document new meta options](https://github.com/tmmdata/chartist-plugin-tooltip/pull/87) from meisanerd 
-* [#131 (feature) add chartist-plugin-tooltip.scss to dist folder](https://github.com/tmmdata/chartist-plugin-tooltip/pull/131) from Zadvornyi
-* [#136 Fix issue checking chart type when uglified](https://github.com/tmmdata/chartist-plugin-tooltip/pull/136) from jkowens
-* [#128 Fixes width/height being incorrect](https://github.com/tmmdata/chartist-plugin-tooltip/pull/128) from jdoyle65 
-* [#160 Fixed memory leak](https://github.com/tmmdata/chartist-plugin-tooltip/pull/160) from callanto
-* [#173 Adding support for SOLID donut graphs](https://github.com/tmmdata/chartist-plugin-tooltip/pull/173) from AlexLaforge
-* [#9 Add support to IE11](https://github.com/LukBukkit/chartist-plugin-tooltip/pull/9) from Borrajo
-
-#### More new exciting stuff
-* Upgrade to Yarn
-* Up-to-date dependencies
-* Latest version published on npm
-
-## Available options and their defaults
+The following options can be configured when the plugin is loaded.
+Their default values are as shown.
 
 ```javascript
 var defaultOptions = {
-  currency: undefined, //accepts '£', '$', '€', etc.
-  //e.g. 4000 => €4,000
+  currency: undefined, // Accepts '£', '$', '€', etc.
+  // Append curreny information e.g. 4000 => €4,000
 
-  tooltipFnc: undefined, //accepts function
-  //build custom tooltip
+  tooltipFnc: undefined, // Accepts function
+  // Build custom tooltip
 
-  transformTooltipTextFnc: undefined, // accepts function
-  // transform tooltip text
+  transformTooltipTextFnc: undefined, // Accepts function
+  // Transform tooltip text
 
-  class: undefined, // accecpts 'class1', 'class1 class2', etc.
-  //adds class(es) to tooltip wrapper
+  class: undefined, // Accecpts 'class1', 'class1 class2', etc.
+  // Adds class(es) to the tooltip wrapper
 
-  anchorToPoint: false, //accepts true or false
-  //tooltips do not follow mouse movement -- they are anchored to the point / bar.
+  anchorToPoint: false, // Accepts true or false
+  // Tooltips do not follow mouse movement -- they are anchored to the point / bar.
 
-  appendToBody: true, //accepts true or false
-  //appends tooltips to body instead of chart container,
+  appendToBody: true, // Accepts true or false
+  // Appends tooltips to body instead of chart container,
 
-  metaIsHTML: false //accepts true or false
-  //Whether to parse the meta value as HTML or plain text
+  metaIsHTML: false // Accepts true or false
+  // Whether to parse the meta value as HTML or plain text
 };
 ```
 
-## Sample usage in Chartist.js
+## Sample Usage
 
-#### First you have to install the plugin via Yarn:
+### 1. Install the plugin
 
 `yarn add chartist-plugin-tooltips-updated`
 
-#### Then you can include this plugin...
-1. via `<script>` tag and the file `dist/chartist-plugin-tooltip.min.js`:
-```js
-var chart = new Chartist.Line('.ct-chart', data, {
-  plugins: [
-    Chartist.plugins.tooltip()
-  ]
-});
-```
-(WARNING: If you used the version 0.0.17 from NPM (latest) of the package `chartist-plugin-tooltips`. 
-The `s` of tooltips 
-[got removed](https://github.com/tmmdata/chartist-plugin-tooltip/commit/c476a2dd255134241e4238f562ac3cb8b617bc79) 
-in the plugin function: ~~Chartist.plugins.tooltips~~())
+### 2. Include JS
 
-2. or via a CommonJS import (like in NodeJS):
+Include the JavaScript script file of the plugin either using one of two options:
+
+1. Include it using a `<script>` tag:
+```html
+<script src="node_modules/chartist/dist/index.umd.js"></script>
+<script src="node_modules/chartist-plugin-tooltips-updated/dist/chartist-plugin-tooltip.min.js"></script>
+
+<script>
+  var chart = new Chartist.LineChart('.ct-chart', data, {
+    plugins: [
+      Chartist.plugins.tooltip()
+    ]
+  });
+</script>
+
+```
+
+2. Include it using an import:
 ```js
-import Chartist from 'chartist';
+import { LineChart } from 'chartist';
 import ChartistTooltip from 'chartist-plugin-tooltips-updated';
 
-let chart = new Chartist.Line('.ct-chart', data, {
+let chart = new Chartist.LineChart('.ct-chart', data, {
   plugins: [
     ChartistTooltip()
   ]
 });
 ```
-Don't forget to include the CSS files
-```
-"node_modules/chartist/dist/chartist.css",
-"node_modules/chartist-plugin-tooltips-updated/dist/chartist-plugin-tooltip.css"
-```
 
-1. in the `<head>` of your HTML file
+Warning: The version 0.0.17 of the original package available on npm included a `s` suffix for the `tooltip` function
+which now has been removed,
+see the [related commit](https://github.com/tmmdata/chartist-plugin-tooltip/commit/c476a2dd255134241e4238f562ac3cb8b617bc79).
+
+### 3. Include CSS
+Include the two CSS files in your project:
+- `node_modules/chartist/dist/chartist.css`
+- `node_modules/chartist-plugin-tooltips-updated/dist/chartist-plugin-tooltip.css`
+
+Either using one of two options:
+1. Include them in the `<head>` of your HTML file
 ```html
 <link rel="stylesheet" href="node_modules/chartist/dist/chartist.css">
 <link rel="stylesheet" href="node_modules/chartist-plugin-tooltips-updated/dist/chartist-plugin-tooltip.css">
 ```
-2. as [Webpack](https://webpack.js.org/loaders/style-loader/) CSS imports
+2. Include them as [Webpack](https://webpack.js.org/loaders/style-loader/) CSS imports
 ```js
 import 'chartist/dist/chartist.css';
 import 'chartist-plugin-tooltips-updated/dist/chartist-plugin-tooltip.css';
 ```
 
-#### And now you can use the different options for labels:
+### 4. Configure Labels
 
-With descriptive text:
+Without a descriptive text:
 ```js
-var chart = new Chartist.Line('.ct-chart', {
+var chart = new Chartist.LineChart('.ct-chart', {
+  labels: [1, 2, 3, 4, 5, 6, 7],
+  series: [
+    [1, 5, 3, 4, 6, 2, 3],
+    [2, 4, 2, 5, 4, 3, 6]
+  ]
+}, {
+  plugins: [
+    Chartist.plugins.tooltip()
+  ]
+});
+```
+
+With a descriptive text:
+```js
+var chart = new Chartist.LineChart('.ct-chart', {
   labels: [1, 2, 3],
   series: [
     [
@@ -134,24 +133,9 @@ var chart = new Chartist.Line('.ct-chart', {
 });
 ```
 
-Without descriptive text:
+With a custom formatted descriptive text:
 ```js
-var chart = new Chartist.Line('.ct-chart', {
-  labels: [1, 2, 3, 4, 5, 6, 7],
-  series: [
-    [1, 5, 3, 4, 6, 2, 3],
-    [2, 4, 2, 5, 4, 3, 6]
-  ]
-}, {
-  plugins: [
-    Chartist.plugins.tooltip()
-  ]
-});
-```
-
-With options text:
-```js
-var chart = new Chartist.Line('.ct-chart', {
+var chart = new Chartist.LineChart('.ct-chart', {
   labels: [1, 2, 3],
   series: [
     [
@@ -176,22 +160,24 @@ var chart = new Chartist.Line('.ct-chart', {
 });
 ```
 
-If you change the css properties of the tooltip, you shouldn't change the `display` property, 
-otherwise the position of the tooltip will be wrong!
+If you change the CSS properties of the tooltip, you shouldn't change the `display` property, 
+otherwise the tooltip may be incorrectly positioned.
 
-## Custom point element.
+## Custom Point Element
 
-In ChartistJS you can replace default element with smth different.
+This guide is a bit outdated and may not work with new versions of the plugin.
+
+In Chartist, you can replace the default point element with a custom element.
 There is a pretty [demo](https://gionkunz.github.io/chartist-js/examples.html#example-line-modify-drawing) 
-(*USING EVENTS TO REPLACE GRAPHICS*).
-And if you want the tooltip to work fine with a new element, you need to include **two more properties**:
+which uses events to replace the default point graphics.
+If you want the tooltip to work fine with a new element, you need to include two more properties to your custom element:
 
 ```javascript
 'ct:value': data.value.y,
 'ct:meta': data.meta,
 ```
 
-AND you have to add the following **css rule** to the new element by using the `style` option 
+And you have to add the following CSS rule to the new element by using the `style` option 
 or by adding this rule to your css class: 
 
 ```css
@@ -231,3 +217,26 @@ plugins: [
   })
 ]
 ```
+
+## Why this fork?
+This repository is a fork of [tmmdata/chartist-plugin-tooltip](https://github.com/tmmdata/chartist-plugin-tooltip).
+(Thanks for the great work!)
+
+It seems as this repository is no longer maintained,
+that's why I decided to fork it and include several pull requests and update the dependencies.
+
+#### Included Pull Requests
+
+* [#87 Document new meta options](https://github.com/tmmdata/chartist-plugin-tooltip/pull/87) from meisanerd
+* [#131 (feature) add chartist-plugin-tooltip.scss to dist folder](https://github.com/tmmdata/chartist-plugin-tooltip/pull/131) from Zadvornyi
+* [#136 Fix issue checking chart type when uglified](https://github.com/tmmdata/chartist-plugin-tooltip/pull/136) from jkowens
+* [#128 Fixes width/height being incorrect](https://github.com/tmmdata/chartist-plugin-tooltip/pull/128) from jdoyle65
+* [#160 Fixed memory leak](https://github.com/tmmdata/chartist-plugin-tooltip/pull/160) from callanto
+* [#173 Adding support for SOLID donut graphs](https://github.com/tmmdata/chartist-plugin-tooltip/pull/173) from AlexLaforge
+* [#9 Add support to IE11](https://github.com/LukBukkit/chartist-plugin-tooltip/pull/9) from Borrajo
+* [#20 Support for Chartist v1](https://github.com/LukBukkit/chartist-plugin-tooltip/pull/20) from stklcode
+
+#### More new exciting stuff
+* Upgrade to Yarn
+* Up-to-date dependencies
+* Latest version published on npm
