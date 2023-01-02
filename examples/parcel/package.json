@@ -1,0 +1,16 @@
+{
+  "name": "tooltip-example",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "chartist": "^1.3.0",
+    "chartist-plugin-tooltips-updated": "^1.0.0"
+  },
+  "devDependencies": {
+    "parcel": "^2.8.2"
+  },
+  "scripts": {
+    "serve": "parcel src/index.html"
+  }
+}
