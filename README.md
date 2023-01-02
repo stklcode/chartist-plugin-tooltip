@@ -65,7 +65,7 @@ Include the JavaScript script file of the plugin either using one of two options
 import { LineChart } from 'chartist';
 import ChartistTooltip from 'chartist-plugin-tooltips-updated';
 
-let chart = new Chartist.LineChart('.ct-chart', data, {
+let chart = new LineChart('.ct-chart', data, {
   plugins: [
     ChartistTooltip()
   ]
@@ -78,18 +78,18 @@ see the [related commit](https://github.com/tmmdata/chartist-plugin-tooltip/comm
 
 ### 3. Include CSS
 Include the two CSS files in your project:
-- `node_modules/chartist/dist/chartist.css`
+- `node_modules/chartist/dist/index.css`
 - `node_modules/chartist-plugin-tooltips-updated/dist/chartist-plugin-tooltip.css`
 
 Either using one of two options:
 1. Include them in the `<head>` of your HTML file
 ```html
-<link rel="stylesheet" href="node_modules/chartist/dist/chartist.css">
+<link rel="stylesheet" href="node_modules/chartist/dist/index.css">
 <link rel="stylesheet" href="node_modules/chartist-plugin-tooltips-updated/dist/chartist-plugin-tooltip.css">
 ```
 2. Include them as [Webpack](https://webpack.js.org/loaders/style-loader/) CSS imports
 ```js
-import 'chartist/dist/chartist.css';
+import 'chartist/dist/index.css';
 import 'chartist-plugin-tooltips-updated/dist/chartist-plugin-tooltip.css';
 ```
 
@@ -160,7 +160,7 @@ var chart = new Chartist.LineChart('.ct-chart', {
 });
 ```
 
-If you change the CSS properties of the tooltip, you shouldn't change the `display` property, 
+If you change the CSS properties of the tooltip, you shouldn't change the `display` property,
 otherwise the tooltip may be incorrectly positioned.
 
 ## Custom Point Element
@@ -168,17 +168,17 @@ otherwise the tooltip may be incorrectly positioned.
 This guide is a bit outdated and may not work with new versions of the plugin.
 
 In Chartist, you can replace the default point element with a custom element.
-There is a pretty [demo](https://gionkunz.github.io/chartist-js/examples.html#example-line-modify-drawing) 
+There is a pretty [demo](https://gionkunz.github.io/chartist-js/examples.html#example-line-modify-drawing)
 which uses events to replace the default point graphics.
 If you want the tooltip to work fine with a new element, you need to include two more properties to your custom element:
 
 ```javascript
 'ct:value': data.value.y,
-'ct:meta': data.meta,
+  'ct:meta': data.meta,
 ```
 
-And you have to add the following CSS rule to the new element by using the `style` option 
-or by adding this rule to your css class: 
+And you have to add the following CSS rule to the new element by using the `style` option
+or by adding this rule to your css class:
 
 ```css
 pointer-events: all!important;
