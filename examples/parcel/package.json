@@ -4,11 +4,11 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "chartist": "^1.3.0",
-    "chartist-plugin-tooltips-updated": "^1.0.0"
+    "chartist": "^1.5.0",
+    "@stklcode/chartist-plugin-tooltips": "^2.0.0-beta.1"
   },
   "devDependencies": {
-    "parcel": "^2.8.2"
+    "parcel": "^2.16.4"
   },
   "scripts": {
     "serve": "parcel src/index.html"

@@ -1,8 +1,8 @@
 import {LineChart} from "chartist";
-import TooltipPlugin from "chartist-plugin-tooltips-updated";
+import TooltipPlugin from "@stklcode/chartist-plugin-tooltips";
 
 import 'chartist/dist/index.css';
-import 'chartist-plugin-tooltips-updated/dist/chartist-plugin-tooltip.css';
+import '@stklcode/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css';
 
 function randomInRange(min, max) {
   return Math.floor(Math.random() * max) + min;
@@ -24,6 +24,6 @@ new LineChart('#my-chart', {
   ]
 }, {
   plugins: [
-    new TooltipPlugin()
+    TooltipPlugin
   ]
 });

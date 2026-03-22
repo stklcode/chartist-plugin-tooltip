@@ -14,9 +14,9 @@ This example uses the build tool [parcel](https://parceljs.org) to load Chartist
 # Switch to the parcel example folder 
 cd parcel
 # Install all dependencies
-yarn install
+npm install
 # Start 
-yarn run serve
+npm run serve
 ```
 
 View the result on [localhost:1234](http://localhost:1234).
