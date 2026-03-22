@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- The plugin provides an ESM, CSJ and UMD version
+- Sources were converted to TypeScript
+
+### Added 
+- The "class" option accepts a single class name or an array of class names
+
+### Removed 
+- Removed "currency" and "currencyFormatCallback" options
+
+----
+
 ## [1.0.0] - 2nd January 2023
 
 Versions 1.0.0 and above of this plugin only work with Chartist versions of 1.0.0 and above.
@@ -16,6 +28,8 @@ Versions 1.0.0 and above of this plugin only work with Chartist versions of 1.0.
 
 ### Removed 
 - Support for Chartist version older than v1
+
+----
 
 ## [0.1.4] - 8th July 2020
 
