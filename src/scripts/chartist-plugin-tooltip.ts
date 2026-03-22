@@ -5,23 +5,70 @@ import { BarChart, BaseChart, PieChart } from 'chartist';
  * Tooltip plugin options.
  */
 export interface Options {
+  /**
+   * Currency or unit suffix, e.h. '$', '€' or '%' to be appended to the value.
+   */
   currency?: string;
+  /**
+   * Transformation function to be applied in combination with "currency".
+   *
+   * @param value The original value.
+   * @param options Plugin options.
+   * @returns Tooltip value for output.
+   */
   currencyFormatCallback?: (value: string, options?: Options) => string;
+  /**
+   * Tooltip offset in px.
+   * Default: x 0, y -20
+   */
   tooltipOffset: {
     x: number;
     y: number;
   };
+  /**
+   * If set true, the tooltips will not follow mouse movement and be anchored to the target point or bar.
+   */
   anchorToPoint: boolean;
+  /**
+   * Append tooltip container to body (default: true)
+   */
   appendToBody: boolean;
-  class?: string;
+  /**
+   * Add custom class(es) to the tooltip.
+   * Can be a single class "my-class" or a list ["class-1", "class-2"].
+   */
+  class?: string | string[];
+  /**
+   * Custom point class to append tooltips to.
+   * If none is specified, the default class will be used depending on the chart type (e.g. "ct-point" for line charts).
+   */
   pointClass: string;
+  /**
+   * Custom function to generate tooltip (entire HTML markup).
+   *
+   * @param meta Point's meta value.
+   * @param value Point's value.
+   * @returns Tooltip markup.
+   */
   tooltipFnc?: (meta: string, value: string) => string;
+  /**
+   * Custom function to generate tooltip text (content only).
+   *
+   * @param value Point's value.
+   * @returns Tooltip text.
+   */
   transformTooltipTextFnc?: (value: string) => string;
+  /**
+   * Should the meta content be parsed as HTML (true) or plain text (false, default)
+   */
   metaIsHTML: boolean;
 }
 
 /**
  * Chartist.js plugin to display a data label on top of the points in a line chart.
+ *
+ * @param chart Chart object
+ * @param options Plugin options
  */
 export default function ChartistPluginTooltip<T extends BaseChart<any>>(
   chart: T,
@@ -186,6 +233,11 @@ export default function ChartistPluginTooltip<T extends BaseChart<any>>(
     }
   });
 
+  /**
+   * Update the tooltip position based on the current mouse position.
+   *
+   * @param event Mouse event
+   */
   function setPosition(event: MouseEvent): void {
     height = height || toolTip.offsetHeight;
     width = width || toolTip.offsetWidth;
@@ -233,8 +285,9 @@ export default function ChartistPluginTooltip<T extends BaseChart<any>>(
   }
 
   /**
-   * Shows the tooltip element, if not shown
-   * @param element
+   * Shows the tooltip element, if not shown.
+   *
+   * @param element The HTML element to show
    */
   function show(element: HTMLElement): void {
     toolTipIsShown = true;
@@ -242,14 +295,22 @@ export default function ChartistPluginTooltip<T extends BaseChart<any>>(
   }
 
   /**
-   * Hides the tooltip element
-   * @param element
+   * Hides the tooltip element.
+   *
+   * @param element The HTML element to hide
    */
   function hide(element: HTMLElement): void {
     toolTipIsShown = false;
     element.classList.remove('tooltip-show');
   }
 
+  /**
+   * Find the next element that has a specific class.
+   *
+   * @param element Base element to start off the search
+   * @param className Class name to search for
+   * @returns Matching HTML element of NULL, if none was found
+   */
   function next(element: HTMLElement, className: string) {
     do {
       element = element.nextSibling as HTMLElement;
@@ -258,9 +319,10 @@ export default function ChartistPluginTooltip<T extends BaseChart<any>>(
   }
 
   /**
+   * Get textual content of an element.
    *
-   * @param element
-   * @return {string | string}
+   * @param element HTML element to process
+   * @returns Text content of the element
    */
   function text(element: HTMLElement): string {
     return element.innerText || element.textContent;

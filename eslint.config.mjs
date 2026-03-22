@@ -1,11 +1,13 @@
 import eslint from "@eslint/js";
-import prettier from "eslint-config-prettier/flat";
 import globals from "globals";
+import prettier from "eslint-config-prettier/flat";
+import jsdoc from 'eslint-plugin-jsdoc';
 import tseslint from "typescript-eslint";
 
 export default [
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
+  jsdoc.configs['flat/recommended-typescript'],
   prettier,
   {
     files: ["src/scripts/*.ts"],
@@ -46,7 +48,10 @@ export default [
       "space-before-blocks": 2,
       "spaced-comment": 1,
       "no-var": 2,
-      '@typescript-eslint/no-explicit-any': 'off'
+      '@typescript-eslint/no-explicit-any': 'off',
+      'jsdoc/tag-lines': ['warn', 'any', {'startLines': 1}],
+      'jsdoc/require-description': 'warn',
+      'jsdoc/check-syntax': 'error'
     }
   }
 ];
