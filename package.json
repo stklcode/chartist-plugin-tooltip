@@ -73,11 +73,11 @@
   },
   "scripts": {
     "clean": "del ./dist ./.tmp",
-    "build": "yarn clean && yarn build:styles && yarn build:scripts",
+    "build": "npm run clean && npm run build:styles && npm run build:scripts",
     "build:scripts": "rollup -c",
     "build:styles": "sass --style compressed src/styles:dist",
     "format": "prettier --write 'src/**/*.ts'",
-    "lint": "yarn lint:scripts && yarn lint:styles",
+    "lint": "npm run lint:scripts && npm run lint:styles",
     "lint:scripts": "eslint 'src/scripts/**/*.ts'",
     "lint:styles": "stylelint 'src/styles/**/*.scss'"
   },

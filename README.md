@@ -41,7 +41,9 @@ const defaultOptions = {
 
 ### 1. Install the plugin
 
-`yarn add @stklcode/chartist-plugin-tooltip`
+```shell
+npm add @stklcode/chartist-plugin-tooltip`
+```
 
 ### 2. Include JS
 
