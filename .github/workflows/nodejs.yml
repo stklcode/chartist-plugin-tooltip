@@ -7,15 +7,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v6
+
     - uses: actions/setup-node@v6
       with:
         node-version: 24
+
     - name: npm install
       run: npm ci
+
     - name: build
       run: npm run build
       env:
         CI: true
+
+    - name: test
+      run: npm run test
+
     - name: lint
       run: npm run lint
       env:
