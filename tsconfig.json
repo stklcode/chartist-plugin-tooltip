@@ -9,14 +9,14 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     /* Modules */
-    "baseUrl": ".",
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     /* Emit */
     "declaration": true,
-    "declarationMap": true,
+    "declarationMap": false,
     "inlineSourceMap": true,
+    "rootDir": "src/scripts",
     "outDir": "dist",
     /* Interop Constraints */
     "allowSyntheticDefaultImports": true,
@@ -28,10 +28,13 @@
     ],
     "target": "esnext",
     /* Completeness */
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    /* Types */
+    "types": [
+      "node"
+    ]
   },
   "include": [
-    "src",
-    "test"
+    "src/scripts/**/*"
   ]
 }
