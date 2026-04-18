@@ -1,5 +1,5 @@
 import * as Chartist from 'chartist';
-import { BarChart, BaseChart, PieChart } from 'chartist';
+import {BarChart, BaseChart, PieChart, PieChartOptions} from 'chartist';
 
 /**
  * Tooltip plugin options.
@@ -78,13 +78,13 @@ export default function ChartistPluginTooltip<T extends BaseChart<any>>(
 
   const $options = Chartist.extend({}, defaultOptions, options) as Options;
 
-  // Warning: If you are using npm link or yarn link, these instanceof checks will fail and you won't any tooltips
+  // Warning: If you are using npm link or yarn link, these instanceof checks will fail and you won't get any tooltips
   let tooltipSelector = $options.pointClass || '';
   if (chart instanceof BarChart) {
     tooltipSelector = 'ct-bar';
   } else if (chart instanceof PieChart) {
     // Added support for donut graph
-    if ((chart as any).options.donut) {
+    if (((chart as any).options as PieChartOptions).donut) {
       tooltipSelector = 'ct-slice-donut';
     } else {
       tooltipSelector = 'ct-slice-pie';
@@ -93,7 +93,7 @@ export default function ChartistPluginTooltip<T extends BaseChart<any>>(
 
   const chartElem = (chart as any).container;
   let toolTipIsShown = false;
-  let tooltipOffsetParent = chartElem.offsetParent as HTMLElement;
+  const tooltipOffsetParent = chartElem.offsetParent as HTMLElement;
   let toolTip: HTMLElement;
 
   {
@@ -185,9 +185,6 @@ export default function ChartistPluginTooltip<T extends BaseChart<any>>(
       height = toolTip.offsetHeight;
       width = toolTip.offsetWidth;
 
-      if (!$options.appendToBody) {
-        tooltipOffsetParent = chartElem.offsetParent as HTMLElement;
-      }
       if (toolTip.style.position !== 'absolute') {
         toolTip.style.position = 'absolute';
       }
@@ -200,9 +197,7 @@ export default function ChartistPluginTooltip<T extends BaseChart<any>>(
     }
   });
 
-  chartElem.addEventListener('mouseout', () => {
-    hide(toolTip);
-  });
+  chartElem.addEventListener('mouseout', () => hide(toolTip));
 
   chartElem.addEventListener('mousemove', (event: MouseEvent) => {
     if (!$options.anchorToPoint && toolTipIsShown) {
@@ -218,21 +213,16 @@ export default function ChartistPluginTooltip<T extends BaseChart<any>>(
   function setPosition(event: MouseEvent): void {
     height = height || toolTip.offsetHeight;
     width = width || toolTip.offsetWidth;
-    const offsetX = -width / 2 + $options.tooltipOffset.x;
-    const offsetY = -height + $options.tooltipOffset.y;
+    const offsetX = -width / 2 + ($options.tooltipOffset?.x || 0);
+    const offsetY = -height + ($options.tooltipOffset?.y || 0);
 
-    const anchor =
-      $options.anchorToPoint &&
-      (event.target as any).x2 &&
-      (event.target as any).y2;
+    const anchor = $options.anchorToPoint && event.target instanceof SVGLineElement;
 
     if ($options.appendToBody) {
       if (anchor) {
         const box = chartElem.getBoundingClientRect();
-        const left =
-          (event.target as any).x2.baseVal.value + box.left + window.scrollX;
-        const top =
-          (event.target as any).y2.baseVal.value + box.top + window.scrollY;
+        const left = event.target.x2.baseVal.value + box.left + window.scrollX;
+        const top = event.target.y2.baseVal.value + box.top + window.scrollY;
 
         toolTip.style.left = left + offsetX + 'px';
         toolTip.style.top = top + offsetY + 'px';
@@ -247,10 +237,8 @@ export default function ChartistPluginTooltip<T extends BaseChart<any>>(
 
       if (anchor) {
         const box = chartElem.getBoundingClientRect();
-        const left =
-          (event.target as any).x2.baseVal.value + box.left + window.scrollX;
-        const top =
-          (event.target as any).y2.baseVal.value + box.top + window.scrollY;
+        const left = event.target.x2.baseVal.value + box.left + window.scrollX;
+        const top = event.target.y2.baseVal.value + box.top + window.scrollY;
 
         toolTip.style.left = left + allOffsetLeft + 'px';
         toolTip.style.top = top + allOffsetTop + 'px';
@@ -288,11 +276,13 @@ export default function ChartistPluginTooltip<T extends BaseChart<any>>(
    * @param className Class name to search for
    * @returns Matching HTML element of NULL, if none was found
    */
-  function next(element: HTMLElement, className: string) {
-    do {
-      element = element.nextSibling as HTMLElement;
-    } while (element && !element.classList.contains(className));
-    return element;
+  function next(element: HTMLElement, className: string): HTMLElement | null {
+    let current: Element | null = element.nextElementSibling;
+    while (current && !current.classList.contains(className)) {
+      current = current.nextElementSibling;
+    }
+
+    return current as HTMLElement | null;
   }
 
   /**
@@ -302,6 +292,6 @@ export default function ChartistPluginTooltip<T extends BaseChart<any>>(
    * @returns Text content of the element
    */
   function text(element: HTMLElement): string {
-    return element.innerText || element.textContent;
+    return element.innerText || element.textContent || '';
   }
 }
