@@ -188,8 +188,8 @@ export default function ChartistPluginTooltip<T extends BaseChart<any>>(
       if (!$options.appendToBody) {
         tooltipOffsetParent = chartElem.offsetParent as HTMLElement;
       }
-      if (toolTip.style.display !== 'absolute') {
-        toolTip.style.display = 'absolute';
+      if (toolTip.style.position !== 'absolute') {
+        toolTip.style.position = 'absolute';
       }
       setPosition(event);
       show(toolTip);
