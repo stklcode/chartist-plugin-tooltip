@@ -12,13 +12,13 @@ Their default values are as shown.
 ```javascript
 const defaultOptions = {
   // Tooltip offset in pixels
-  tooltipOffset: { x: 0,y: -20 },
+  tooltipOffset: { x: 0, y: -20 },
 
   // Custom function to generate tooltip HTML ( (meta, value) => html )
   tooltipFnc: undefined,
 
   // Custom function to generate tooltip text ( value => text )
-  transformTooltipTextFnc: undefined, // Accepts function
+  transformTooltipTextFnc: undefined,
 
   // Add class(es) to the tooltip wrapper (string or array of strings)
   class: undefined,
@@ -26,7 +26,7 @@ const defaultOptions = {
   // If true, the tooltips will not follow mouse movement and be anchored to the target point or bar
   anchorToPoint: false,
 
-  // Appends tooltips to body instead of chart container,
+  // Appends tooltips to body instead of chart container.
   appendToBody: true,
 
   // Should the meta content be parsed as HTML?
@@ -42,10 +42,10 @@ const defaultOptions = {
 ### 1. Install the plugin
 
 ```shell
-npm add @stklcode/chartist-plugin-tooltip`
+npm add @stklcode/chartist-plugin-tooltips
 ```
 
-### 2. Include JS
+### 2. Including JavaScript
 
 Include the JavaScript script file of the plugin either using one of two options:
 
@@ -67,7 +67,7 @@ Include the JavaScript script file of the plugin either using one of two options
 2. Include it using an import:
 ```javascript
 import { LineChart } from 'chartist';
-import ChartistTooltip from 'chartist-plugin-tooltip';
+import ChartistPluginTooltip from '@stklcode/chartist-plugin-tooltips';
 
 const chart = new LineChart('.ct-chart', data, {
   plugins: [
@@ -79,29 +79,29 @@ const chart = new LineChart('.ct-chart', data, {
 ### 3. Include CSS
 Include the two CSS files in your project:
 - `node_modules/chartist/dist/index.css`
-- `node_modules/chartist-plugin-tooltip/dist/chartist-plugin-tooltip.css`
+- `node_modules/@stklcode/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css`
 
 Either using one of two options:
 1. Include them in the `<head>` of your HTML file
 ```html
 <link rel="stylesheet" href="node_modules/chartist/dist/index.css">
-<link rel="stylesheet" href="node_modules/chartist-plugin-tooltip/dist/chartist-plugin-tooltip.css">
+<link rel="stylesheet" href="node_modules/@stklcode/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css">
 ```
 2. Include them as [Webpack](https://webpack.js.org/loaders/style-loader/) CSS imports
 ```javascript
 import 'chartist/dist/index.css';
-import 'chartist-plugin-tooltip/dist/chartist-plugin-tooltip.css';
+import '@stklcode/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.css';
 ```
 
-### 4. Configure Labels
+### 4. Configure labels
 
-Without a descriptive text:
+Without custom metadata
 ```javascript
 const chart = new Chartist.LineChart('.ct-chart', {
-  labels: [1, 2, 3, 4, 5, 6, 7],
+  labels: [ 1, 2, 3, 4, 5, 6, 7 ],
   series: [
-    [1, 5, 3, 4, 6, 2, 3],
-    [2, 4, 2, 5, 4, 3, 6]
+    [ 1, 5, 3, 4, 6, 2, 3 ],
+    [ 2, 4, 2, 5, 4, 3, 6 ]
   ]
 }, {
   plugins: [
@@ -113,17 +113,17 @@ const chart = new Chartist.LineChart('.ct-chart', {
 With a descriptive text:
 ```javascript
 const chart = new Chartist.LineChart('.ct-chart', {
-  labels: [1, 2, 3],
+  labels: [ 1, 2, 3 ],
   series: [
     [
-      {meta: 'description', value: 1},
-      {meta: 'description', value: 5},
-      {meta: 'description', value: 3}
+      { meta: 'description', value: 1 },
+      { meta: 'description', value: 5 },
+      { meta: 'description', value: 3 }
     ],
     [
-      {meta: 'other description', value: 2},
-      {meta: 'other description', value: 4},
-      {meta: 'other description', value: 2}
+      { meta: 'other description', value: 2 },
+      { meta: 'other description', value: 4 },
+      { meta: 'other description', value: 2 }
     ]
   ]
 }, {
@@ -135,18 +135,18 @@ const chart = new Chartist.LineChart('.ct-chart', {
 
 With a custom formatted descriptive text:
 ```javascript
-var chart = new Chartist.LineChart('.ct-chart', {
-  labels: [1, 2, 3],
+const chart = new Chartist.LineChart('.ct-chart', {
+  labels: [ 1, 2, 3 ],
   series: [
     [
-      {meta: 'description', value: 1},
-      {meta: 'description', value: 5},
-      {meta: 'description', value: 3}
+      { meta: 'description', value: 1 },
+      { meta: 'description', value: 5 },
+      { meta: 'description', value: 3 }
     ],
     [
-      {meta: 'other description', value: 2},
-      {meta: 'other description', value: 4},
-      {meta: 'other description', value: 2}
+      { meta: 'other description', value: 2 },
+      { meta: 'other description', value: 4 },
+      { meta: 'other description', value: 2 }
     ]
   ]
 }, {
@@ -155,7 +155,7 @@ var chart = new Chartist.LineChart('.ct-chart', {
       ChartistPluginTooltip,
       {
         transformTooltipTextFnc: (value) => `${value} $`,
-        class: ['class1', 'class2'],
+        class: [ 'class1', 'class2' ],
         appendToBody: true
       }
     ]
