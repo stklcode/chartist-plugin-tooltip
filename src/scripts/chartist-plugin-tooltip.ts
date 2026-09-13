@@ -106,9 +106,15 @@ export default function ChartistPluginTooltip<T extends BaseChart<any>>(
     }
     if (!tt) {
       tt = document.createElement('div');
-      tt.className = $options.class
-        ? 'chartist-tooltip ' + $options.class
-        : 'chartist-tooltip';
+      tt.classList.add('chartist-tooltip');
+      if ($options.class) {
+        tt.classList.add(
+          ...([] as string[])
+            .concat($options.class)
+            .flatMap(c => c.split(/\s+/))
+            .filter(Boolean)
+        );
+      }
       if ($options.appendToBody) {
         document.body.appendChild(tt);
       } else {

@@ -39,7 +39,7 @@ describe('Tooltips plugin', () => {
         },
         {
           plugins: [
-            [ChartistPluginTooltip, {class: 'foo', appendToBody: false}]
+            [ChartistPluginTooltip, {class: ['foo', 'bar'], appendToBody: false}]
           ]
         }
       );
@@ -120,7 +120,8 @@ describe('Tooltips plugin', () => {
     assert.equal(getTooltip()!.style.top, '190px');
   });
 
-  it('should set additional class', function () {
+  it('should set additional classes', () => {
     assert.equal(hasClass(getTooltip()!, 'foo'), true);
+    assert.equal(hasClass(getTooltip()!, 'bar'), true);
   });
 });

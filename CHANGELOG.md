@@ -8,7 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [unreleased]
 
 ### Changed
-- Clean up mixed Chartist imports
+- Clean up mixed Chartist imports ([#2](https://github.com/stklcode/chartist-plugin-tooltip/pull/2))
+
+### Fixed
+- Fixed support for multiple custom classes as an array ([#3](https://github.com/stklcode/chartist-plugin-tooltip/pull/3))
 
 
 ## [2.0.0] - 18th April 2026
