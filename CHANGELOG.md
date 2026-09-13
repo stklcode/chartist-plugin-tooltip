@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [unreleased]
@@ -10,7 +10,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Clean up mixed Chartist imports
 
-----
 
 ## [2.0.0] - 18th April 2026
 
@@ -109,15 +108,17 @@ The `s` at the end of the tooltip is now missing.
 ### Fixed
 - Removed Ember reference
 
-[unreleased]: https://github.com/LukBukkit/chartist-plugin-tooltip/compare/v1.0.0...HEAD
-[1.0.0]: https://github.com/LukBukkit/chartist-plugin-tooltip/compare/v0.1.4...v1.0.0
-[0.1.4]: https://github.com/LukBukkit/chartist-plugin-tooltip/compare/v0.1.3...v0.1.4
-[0.1.3]: https://github.com/LukBukkit/chartist-plugin-tooltip/compare/v0.1.2...v0.1.3
-[0.1.2]: https://github.com/LukBukkit/chartist-plugin-tooltip/compare/v0.1.1...v0.1.2
-[0.1.1]: https://github.com/LukBukkit/chartist-plugin-tooltip/compare/v0.0.21...v0.1.1
-[0.0.21]: https://github.com/LukBukkit/chartist-plugin-tooltip/compare/v0.0.20...v0.0.21
-[0.0.20]: https://github.com/LukBukkit/chartist-plugin-tooltip/compare/v0.0.11...v0.0.20
-[0.0.11]: https://github.com/LukBukkit/chartist-plugin-tooltip/compare/v0.0.10...v0.0.11
-[0.0.10]: https://github.com/LukBukkit/chartist-plugin-tooltip/compare/v0.0.9...v0.0.10
-[0.0.9]: https://github.com/LukBukkit/chartist-plugin-tooltip/compare/v0.0.8...v0.0.9
-[0.0.8]: https://github.com/LukBukkit/chartist-plugin-tooltip/releases/tag/v0.0.8
+
+[unreleased]: https://github.com/stklcode/chartist-plugin-tooltip/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/stklcode/chartist-plugin-tooltip/compare/v1.0.0..v2.0.0
+[1.0.0]: https://github.com/stklcode/chartist-plugin-tooltip/compare/v0.1.4...v1.0.0
+[0.1.4]: https://github.com/stklcode/chartist-plugin-tooltip/compare/v0.1.3...v0.1.4
+[0.1.3]: https://github.com/stklcode/chartist-plugin-tooltip/compare/v0.1.2...v0.1.3
+[0.1.2]: https://github.com/stklcode/chartist-plugin-tooltip/compare/v0.1.1...v0.1.2
+[0.1.1]: https://github.com/stklcode/chartist-plugin-tooltip/compare/v0.0.21...v0.1.1
+[0.0.21]: https://github.com/stklcode/chartist-plugin-tooltip/compare/v0.0.20...v0.0.21
+[0.0.20]: https://github.com/stklcode/chartist-plugin-tooltip/compare/v0.0.11...v0.0.20
+[0.0.11]: https://github.com/stklcode/chartist-plugin-tooltip/compare/v0.0.10...v0.0.11
+[0.0.10]: https://github.com/stklcode/chartist-plugin-tooltip/compare/v0.0.9...v0.0.10
+[0.0.9]: https://github.com/stklcode/chartist-plugin-tooltip/compare/v0.0.8...v0.0.9
+[0.0.8]: https://github.com/stklcode/chartist-plugin-tooltip/releases/tag/v0.0.8
