@@ -1,5 +1,4 @@
-import * as Chartist from 'chartist';
-import {BarChart, BaseChart, PieChart, PieChartOptions} from 'chartist';
+import {extend, BarChart, BaseChart, PieChart, PieChartOptions} from 'chartist';
 
 /**
  * Tooltip plugin options.
@@ -62,7 +61,7 @@ export default function ChartistPluginTooltip<T extends BaseChart<any>>(
   chart: T,
   options?: Partial<Options>
 ): void {
-  const defaultOptions = {
+  const defaultOptions: Options = {
     tooltipOffset: {
       x: 0,
       y: -20
@@ -76,7 +75,7 @@ export default function ChartistPluginTooltip<T extends BaseChart<any>>(
     metaIsHTML: false
   };
 
-  const $options = Chartist.extend({}, defaultOptions, options) as Options;
+  const $options: Options = extend({}, defaultOptions, options);
 
   // Warning: If you are using npm link or yarn link, these instanceof checks will fail and you won't get any tooltips
   let tooltipSelector = $options.pointClass || '';
@@ -132,7 +131,7 @@ export default function ChartistPluginTooltip<T extends BaseChart<any>>(
     let tooltipText = '';
 
     let seriesName = '';
-    if (chart instanceof Chartist.BarChart) {
+    if (chart instanceof BarChart) {
       seriesName =
         (point.parentNode as HTMLElement).getAttribute('ct:meta') ||
         (point.parentNode as HTMLElement).getAttribute('ct:series-name') ||
