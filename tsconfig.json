@@ -24,9 +24,9 @@
     /* Language and Environment */
     "lib": [
       "dom",
-      "esnext"
+      "es2017"
     ],
-    "target": "esnext",
+    "target": "es2017",
     /* Completeness */
     "skipLibCheck": true,
     /* Types */
