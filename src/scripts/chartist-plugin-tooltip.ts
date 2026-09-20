@@ -1,4 +1,10 @@
-import {extend, BarChart, BaseChart, PieChart, PieChartOptions} from 'chartist';
+import {
+  extend,
+  BarChart,
+  BaseChart,
+  PieChart,
+  PieChartOptions
+} from 'chartist';
 
 /**
  * Tooltip plugin options.
@@ -221,7 +227,8 @@ export default function ChartistPluginTooltip<T extends BaseChart<any>>(
     const offsetX = -width / 2 + ($options.tooltipOffset?.x || 0);
     const offsetY = -height + ($options.tooltipOffset?.y || 0);
 
-    const anchor = $options.anchorToPoint && event.target instanceof SVGLineElement;
+    const anchor =
+      $options.anchorToPoint && event.target instanceof SVGLineElement;
 
     if ($options.appendToBody) {
       if (anchor) {
